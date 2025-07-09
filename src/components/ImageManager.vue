@@ -13,8 +13,8 @@
           <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
             图片管理
             <span v-if="totalImages > 0" class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">
-              (共 {{ totalImages }} 张)
-            </span>
+                  (共 {{ totalImages }} 张)
+                </span>
           </h2>
         </div>
 
@@ -53,8 +53,8 @@
             @click="activeTab = 'gallery'"
             class="px-6 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
             :class="activeTab === 'gallery'
-            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-            : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
+                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
         >
           图片库 ({{ totalImages }})
         </button>
@@ -62,8 +62,8 @@
             @click="activeTab = 'upload'"
             class="px-6 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
             :class="activeTab === 'upload'
-            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-            : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
+                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
         >
           上传图片
         </button>
@@ -191,8 +191,8 @@
               </button>
 
               <span class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
-                {{ currentPage }} / {{ totalPages }}
-              </span>
+                    {{ currentPage }} / {{ totalPages }}
+                  </span>
 
               <button
                   @click="loadImages(currentPage + 1)"
@@ -346,6 +346,10 @@ const loadImages = async (page = 1) => {
   }
 };
 
+const refreshImages = () => {
+  loadImages(currentPage.value);
+};
+
 const formatFileSize = (bytes) => {
   if (bytes === 0) return '0 B';
   const k = 1024;
@@ -422,6 +426,7 @@ const deleteImage = async (image) => {
     }
   } catch (err) {
     showToast('error', '删除失败，请重试');
+    console.error(err);
   }
 };
 

@@ -5,7 +5,8 @@
       <div class="flex items-center space-x-3">
         <div class="w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
         </div>
         <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -34,7 +35,8 @@
         <div>
           <div class="relative">
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <input
                 v-model="searchFilters.article_title"
@@ -64,7 +66,8 @@
         <div>
           <div class="relative">
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
             </svg>
             <input
                 v-model="searchFilters.article_source"
@@ -79,7 +82,8 @@
         <div>
           <div class="relative">
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2zm8 0h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2zm8 0h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2z"/>
             </svg>
             <select
                 v-model="searchFilters.status"
@@ -90,7 +94,8 @@
               <option :value="1">已发布</option>
               <option :value="2">已下线</option>
             </select>
-            <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </div>
@@ -138,7 +143,8 @@
               class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded text-sm font-medium transition-colors duration-200"
           >
             <svg class="w-3 h-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
             重置
           </button>
@@ -149,7 +155,8 @@
           >
             <svg v-if="isLoading" class="w-3 h-3 mr-1 animate-spin inline" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
             <svg v-else class="w-3 h-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -185,7 +192,8 @@
       <div v-else-if="articles.length === 0" class="flex-1 flex items-center justify-center">
         <div class="text-center">
           <svg class="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
           <p class="text-gray-500 dark:text-gray-400 mb-4">没有找到符合条件的文章</p>
           <button @click="showCreateModal = true" class="btn-primary">创建第一篇文章</button>
@@ -194,31 +202,31 @@
 
       <!-- Article List -->
       <div v-else class="flex-1 overflow-y-auto">
-        <div class="space-y-4">
+        <div class="space-y-3">
           <div
               v-for="article in articles"
               :key="article.article_id"
-              class="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800 overflow-hidden"
-              :class="getRandomGradientClass()"
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800"
           >
-            <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
-              <div class="flex items-start w-full">
-                <div class="p-6 flex-1">
-                  <div class="flex items-start space-x-6">
+            <div class="flex items-start justify-between w-full">
+              <div class="p-4 flex-1">
+                <div class="flex items-center space-x-4">
                   <!-- Head Image -->
-                  <div v-if="article.article_head_image" class="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
+                  <div v-if="article.article_head_image" class="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0 shadow-sm">
                     <img
                         :src="article.article_head_image"
                         :alt="article.article_title"
-                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                         @error="onImageError"
                     />
                   </div>
 
                   <!-- Placeholder for articles without image -->
-                  <div v-else class="w-32 h-32 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 flex items-center justify-center flex-shrink-0 shadow-md">
-                    <svg class="w-12 h-12 text-primary-500 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  <div v-else
+                       class="w-32 h-32 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-10 h-10 text-primary-500 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                   </div>
 
@@ -227,115 +235,100 @@
                     <!-- Title - clickable -->
                     <h3
                         @click="editArticle(article)"
-                        class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 line-clamp-2"
+                        class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 line-clamp-2"
                     >
                       {{ article.article_title }}
                     </h3>
 
                     <!-- Summary -->
-                    <div class="mb-4">
-                      <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">概要：</span>
-                      <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2 leading-relaxed">
+                    <div class="flex items-start text-sm mb-2">
+                      <span class="font-medium text-gray-500 dark:text-gray-400 mr-1 flex-shrink-0">概要:</span>
+                      <p class="text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed flex-grow">
                         {{ article.article_summary || '暂无摘要' }}
                       </p>
                     </div>
 
-                    <!-- Meta info grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <!-- Author -->
-                      <div>
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">作者：</span>
-                        <div class="flex items-center mt-1">
-                          <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                          </svg>
-                          <span class="text-gray-700 dark:text-gray-300">{{ article.article_author || '未知作者' }}</span>
-                        </div>
+                    <!-- Meta info -->
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mb-2">
+                      <div class="flex items-center text-xs">
+                        <svg class="w-3 h-3 mr-1 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <span class="font-medium text-gray-500 dark:text-gray-400 mr-1">作者:</span>
+                        <span class="truncate max-w-[300px]">{{ article.article_author || '未知作者' }}</span>
                       </div>
-                      
-                      <!-- Source -->
-                      <div>
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">来源：</span>
-                        <div class="flex items-center mt-1">
-                          <component 
-                            :is="getMediaIcon(article.article_source)" 
-                            v-if="getMediaIcon(article.article_source)" 
-                            class="w-4 h-4 mr-2"
-                          />
-                          <svg v-else class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                          </svg>
-                          <span class="text-gray-700 dark:text-gray-300">{{ article.article_source || '未知来源' }}</span>
-                        </div>
+                      <div class="flex items-center text-xs">
+                        <MediaIcon :source="article.article_source" />
+                        <span class="font-medium text-gray-500 dark:text-gray-400 mr-1">来源:</span>
+                        <span class="truncate max-w-[300px]">{{ article.article_source || '未知来源' }}</span>
                       </div>
-                      
-                      <!-- Create Time -->
-                      <div>
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">创建时间：</span>
-                        <div class="flex items-center mt-1">
-                          <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                          </svg>
-                          <span class="text-gray-700 dark:text-gray-300">{{ article.create_time }}</span>
-                        </div>
+                    </div>
+
+                    <!-- Time info -->
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-400 dark:text-gray-500">
+                      <div class="flex items-center text-xs">
+                        <svg class="w-3 h-3 mr-1 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-medium text-gray-500 dark:text-gray-400 mr-1">创建时间:</span>
+                        <span class="truncate">{{ formatDate(article.create_time) }}</span>
                       </div>
-                      
-                      <!-- Update Time -->
-                      <div>
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">更新时间：</span>
-                        <div class="flex items-center mt-1">
-                          <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                          </svg>
-                          <span class="text-gray-700 dark:text-gray-300">{{ article.update_time }}</span>
-                        </div>
+                      <div class="flex items-center text-xs">
+                        <svg class="w-3 h-3 mr-1 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        <span class="font-medium text-gray-500 dark:text-gray-400 mr-1">更新时间:</span>
+                        <span class="truncate">{{ formatDate(article.update_time) }}</span>
                       </div>
                     </div>
                   </div>
-                  </div>
                 </div>
+              </div>
 
-                <!-- Status and Actions -->
-                <div class="flex flex-col items-center justify-between p-6 bg-gray-50/50 dark:bg-gray-700/50 min-w-[120px]">
-                  <!-- Status Badge -->
-                  <span
-                      class="px-3 py-1 text-xs font-semibold rounded-full shadow-sm mb-4"
-                      :class="getStatusClass(article.status)"
+              <!-- Status and Actions -->
+              <div class="flex flex-col items-end space-y-2 p-4">
+                <!-- Status Badge -->
+                <span
+                    class="px-2.5 py-0.5 text-xs font-semibold rounded-full shadow-sm"
+                    :class="getStatusClass(article.status)"
+                >
+                  {{ getStatusText(article.status) }}
+                </span>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-0.5">
+                  <button
+                      @click.stop="viewArticle(article)"
+                      class="p-1.5 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors duration-200 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20"
+                      title="查看详情"
                   >
-                    {{ getStatusText(article.status) }}
-                  </span>
-
-                  <!-- Action Buttons -->
-                  <div class="flex flex-col space-y-2">
-                    <button
-                        @click.stop="viewArticle(article)"
-                        class="p-3 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors duration-200 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20"
-                        title="查看详情"
-                    >
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                      </svg>
-                    </button>
-                    <button
-                        @click.stop="editArticle(article)"
-                        class="p-3 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                        title="编辑"
-                    >
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                      </svg>
-                    </button>
-                    <button
-                        @click.stop="deleteArticle(article)"
-                        class="p-3 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors duration-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
-                        title="删除"
-                    >
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                      </svg>
-                    </button>
-                  </div>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                  </button>
+                  <button
+                      @click.stop="editArticle(article)"
+                      class="p-1.5 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      title="编辑"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                  </button>
+                  <button
+                      @click.stop="deleteArticle(article)"
+                      class="p-1.5 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors duration-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+                      title="删除"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -409,10 +402,13 @@
           :class="toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
       >
         <svg v-if="toast.type === 'success'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"/>
         </svg>
         <svg v-else class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd"/>
         </svg>
         <span>{{ toast.message }}</span>
       </div>
@@ -421,16 +417,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, reactive, watch, h } from 'vue';
-import { articleApi } from '../services/api';
+import {ref, computed, onMounted, reactive, watch} from 'vue';
+import {articleApi} from '../services/api';
 import ArticleModal from './ArticleModal.vue';
 import ArticleViewModal from './ArticleViewModal.vue';
+import MediaIcon from './MediaIcon.vue'; // Import the new MediaIcon component
 
 // State
 const articles = ref([]);
 const isLoading = ref(false);
 const error = ref('');
-const toast = ref({ show: false, type: 'success', message: '' });
+const toast = ref({show: false, type: 'success', message: ''});
 
 // Search filters
 const searchFilters = reactive({
@@ -636,46 +633,8 @@ const onImageError = (event) => {
   event.target.style.display = 'none';
 };
 
-// Random gradient classes
-const gradientClasses = [
-  'bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/30',
-  'bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/30',
-  'bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30',
-  'bg-gradient-to-br from-yellow-50 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/30',
-  'bg-gradient-to-br from-red-50 to-rose-100 dark:from-red-900/20 dark:to-rose-900/30',
-  'bg-gradient-to-br from-cyan-50 to-blue-100 dark:from-cyan-900/20 dark:to-blue-900/30',
-  'bg-gradient-to-br from-violet-50 to-purple-100 dark:from-violet-900/20 dark:to-purple-900/30',
-  'bg-gradient-to-br from-teal-50 to-green-100 dark:from-teal-900/20 dark:to-green-900/30'
-];
-
-const getRandomGradientClass = () => {
-  return gradientClasses[Math.floor(Math.random() * gradientClasses.length)];
-};
-
-// Media icons mapping
-const mediaIcons = {
-  'Bloomberg': () => h('div', { class: 'w-4 h-4 bg-black text-white rounded text-xs flex items-center justify-center font-bold' }, 'B'),
-  'CNN': () => h('div', { class: 'w-4 h-4 bg-red-600 text-white rounded text-xs flex items-center justify-center font-bold' }, 'C'),
-  'BBC': () => h('div', { class: 'w-4 h-4 bg-red-700 text-white rounded text-xs flex items-center justify-center font-bold' }, 'B'),
-  'The New York Times': () => h('div', { class: 'w-4 h-4 bg-gray-900 text-white rounded text-xs flex items-center justify-center font-bold' }, 'T'),
-  'The Wall Street Journal': () => h('div', { class: 'w-4 h-4 bg-blue-900 text-white rounded text-xs flex items-center justify-center font-bold' }, 'W'),
-  'The Economist': () => h('div', { class: 'w-4 h-4 bg-red-800 text-white rounded text-xs flex items-center justify-center font-bold' }, 'E')
-};
-
-const getMediaIcon = (source) => {
-  if (!source) return null;
-  
-  const normalizedSource = source.toLowerCase();
-  for (const [media, icon] of Object.entries(mediaIcons)) {
-    if (normalizedSource.includes(media.toLowerCase())) {
-      return icon;
-    }
-  }
-  return null;
-};
-
 const showToast = (type, message) => {
-  toast.value = { show: true, type, message };
+  toast.value = {show: true, type, message};
   setTimeout(() => {
     toast.value.show = false;
   }, 3000);
@@ -690,7 +649,7 @@ watch(searchFilters, () => {
       searchArticles();
     }
   }, 500);
-}, { deep: true });
+}, {deep: true});
 
 onMounted(() => {
   loadArticles();

@@ -91,8 +91,18 @@
         </div>
 
         <!-- Image Grid -->
-        <div v-else class="flex-1 overflow-y-auto">
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div v-else class="flex-1 overflow-y-auto p-6">
+          <!-- Gallery Header with Clear All Button -->
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              图片库
+              <span v-if="totalImages > 0" class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">
+                ({{ totalImages }} 张图片)
+              </span>
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8 gap-3">
             <div
                 v-for="image in images"
                 :key="image.id"
@@ -313,6 +323,10 @@ const loadImages = async (page = 1) => {
   } finally {
     isLoading.value = false;
   }
+};
+
+const refreshImages = () => {
+  loadImages(currentPage.value);
 };
 
 const formatFileSize = (bytes) => {

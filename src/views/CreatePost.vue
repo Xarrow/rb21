@@ -1,6 +1,6 @@
 <!--<template>-->
 <!--  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">-->
-<!--    <!&ndash; Success/Error Messages &ndash;>-->
+<!--    &lt;!&ndash; Success/Error Messages &ndash;&gt;-->
 <!--    <div v-if="message" class="fixed top-20 right-4 z-50 animate-slide-up">-->
 <!--      <div-->
 <!--          class="px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 max-w-md"-->
@@ -24,7 +24,7 @@
 <!--      </div>-->
 <!--    </div>-->
 
-<!--    <!&ndash; Main Content &ndash;>-->
+<!--    &lt;!&ndash; Main Content &ndash;&gt;-->
 <!--    <div class="container mx-auto px-4 py-8">-->
 <!--      <div class="mb-8 text-center">-->
 <!--        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">-->
@@ -36,11 +36,11 @@
 <!--        </p>-->
 <!--      </div>-->
 
-<!--      <!&ndash; Split Layout &ndash;>-->
+<!--      &lt;!&ndash; Split Layout &ndash;&gt;-->
 <!--      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-280px)]">-->
-<!--        <!&ndash; Left: Form &ndash;>-->
+<!--        &lt;!&ndash; Left: Form &ndash;&gt;-->
 <!--        <div class="card relative">-->
-<!--          <!&ndash; Image Manager Button &ndash;>-->
+<!--          &lt;!&ndash; Image Manager Button &ndash;&gt;-->
 <!--          <button-->
 <!--              @click="showImageManager = true"-->
 <!--              class="absolute top-4 right-4 z-10 p-2 rounded-lg bg-primary-100 dark:bg-primary-900/30 hover:bg-primary-200 dark:hover:bg-primary-900/50 text-primary-600 dark:text-primary-400 transition-colors duration-200"-->
@@ -57,14 +57,14 @@
 <!--          />-->
 <!--        </div>-->
 
-<!--        <!&ndash; Right: Preview &ndash;>-->
+<!--        &lt;!&ndash; Right: Preview &ndash;&gt;-->
 <!--        <div class="card">-->
 <!--          <MarkdownPreview :content="previewContent" />-->
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
 
-<!--    <!&ndash; Image Manager Modal &ndash;>-->
+<!--    &lt;!&ndash; Image Manager Modal &ndash;&gt;-->
 <!--    <ImageManager-->
 <!--        v-if="showImageManager"-->
 <!--        @close="showImageManager = false"-->
