@@ -192,54 +192,6 @@
         </div>
       </div>
 
-// 随机渐变色数组
-const gradientColors = [
-  'from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/30',
-  'from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/30',
-  'from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30',
-  'from-yellow-50 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/30',
-  'from-red-50 to-rose-100 dark:from-red-900/20 dark:to-rose-900/30',
-  'from-cyan-50 to-teal-100 dark:from-cyan-900/20 dark:to-teal-900/30',
-  'from-violet-50 to-purple-100 dark:from-violet-900/20 dark:to-purple-900/30',
-  'from-amber-50 to-yellow-100 dark:from-amber-900/20 dark:to-yellow-900/30'
-];
-
-// 媒体图标映射
-const mediaIcons = {
-  '新华社': '📰',
-  '人民日报': '📰',
-  '央视新闻': '📺',
-  'CNN': '📺',
-  'BBC': '📺',
-  '路透社': '📰',
-  '美联社': '📰',
-  '法新社': '📰',
-  '今日头条': '📱',
-  '腾讯新闻': '📱',
-  '网易新闻': '📱',
-  '新浪新闻': '📱',
-  '澎湃新闻': '📰',
-  '界面新闻': '📰',
-  '财新网': '💼',
-  '第一财经': '💼',
-  '华尔街日报': '💼',
-  '金融时报': '💼'
-};
-
-const getRandomGradient = (index) => {
-  return gradientColors[index % gradientColors.length];
-};
-
-const getMediaIcon = (source) => {
-  if (!source) return '';
-  for (const [media, icon] of Object.entries(mediaIcons)) {
-    if (source.includes(media)) {
-      return icon;
-    }
-  }
-  return '';
-};
-
       <!-- Article List -->
       <div v-else class="flex-1 overflow-y-auto">
         <div class="space-y-4">
@@ -481,6 +433,54 @@ const showEditModal = ref(false);
 const showViewModal = ref(false);
 const editingArticle = ref(null);
 const viewingArticle = ref(null);
+
+// 随机渐变色数组
+const gradientColors = [
+  'from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/30',
+  'from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/30',
+  'from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30',
+  'from-yellow-50 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/30',
+  'from-red-50 to-rose-100 dark:from-red-900/20 dark:to-rose-900/30',
+  'from-cyan-50 to-teal-100 dark:from-cyan-900/20 dark:to-teal-900/30',
+  'from-violet-50 to-purple-100 dark:from-violet-900/20 dark:to-purple-900/30',
+  'from-amber-50 to-yellow-100 dark:from-amber-900/20 dark:to-yellow-900/30'
+];
+
+// 媒体图标映射
+const mediaIcons = {
+  '新华社': '📰',
+  '人民日报': '📰',
+  '央视新闻': '📺',
+  'CNN': '📺',
+  'BBC': '📺',
+  '路透社': '📰',
+  '美联社': '📰',
+  '法新社': '📰',
+  '今日头条': '📱',
+  '腾讯新闻': '📱',
+  '网易新闻': '📱',
+  '新浪新闻': '📱',
+  '澎湃新闻': '📰',
+  '界面新闻': '📰',
+  '财新网': '💼',
+  '第一财经': '💼',
+  '华尔街日报': '💼',
+  '金融时报': '💼'
+};
+
+const getRandomGradient = (index) => {
+  return gradientColors[index % gradientColors.length];
+};
+
+const getMediaIcon = (source) => {
+  if (!source) return '';
+  for (const [media, icon] of Object.entries(mediaIcons)) {
+    if (source.includes(media)) {
+      return icon;
+    }
+  }
+  return '';
+};
 
 // Methods
 const loadArticles = async (page = 1) => {

@@ -254,7 +254,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Toast Messages -->
     <div v-if="toast.show" class="fixed bottom-4 right-4 z-50 animate-slide-up">
