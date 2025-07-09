@@ -326,24 +326,8 @@ const totalPages = computed(() => Math.ceil(totalImages.value / pageSize.value))
 
 // Methods
 const loadImages = async (page = 1) => {
-  isLoading.value = true;
-  error.value = '';
-
-  try {
-    const response = await imageApi.getImageList(page, pageSize.value);
-
-    if (response.success) {
-      images.value = response.data.images;
-      totalImages.value = response.data.total;
-      currentPage.value = response.data.page;
-    } else {
-      error.value = response.message;
-    }
-  } catch (err) {
-    error.value = '网络错误，请重试';
-  } finally {
-    isLoading.value = false;
-  }
+  await loadImages(1);
+  showToast('success', '图片列表已刷新');
 };
 
 const formatFileSize = (bytes) => {

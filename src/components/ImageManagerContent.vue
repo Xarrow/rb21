@@ -15,23 +15,24 @@
           </span>
         </h2>
       </div>
-      
-      <button
-          @click="refreshImages"
-          class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-          title="刷新"
-          :disabled="isLoading"
-      >
-        <svg 
-            class="w-5 h-5 text-gray-600 dark:text-gray-400"
-            :class="{ 'animate-spin': isLoading }"
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+        
+        <button
+            @click="refreshImages"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+            title="刷新"
+            :disabled="isLoading"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-        </svg>
-      </button>
+          <svg 
+              class="w-5 h-5 text-gray-600 dark:text-gray-400"
+              :class="{ 'animate-spin': isLoading }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -409,6 +410,11 @@ const showToast = (type, message) => {
   setTimeout(() => {
     toast.value.show = false;
   }, 3000);
+};
+
+const refreshImages = async () => {
+  await loadImages(1);
+  showToast('success', '图片列表已刷新');
 };
 
 onMounted(() => {

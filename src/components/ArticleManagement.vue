@@ -192,19 +192,68 @@
         </div>
       </div>
 
+// 随机渐变色数组
+const gradientColors = [
+  'from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/30',
+  'from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/30',
+  'from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30',
+  'from-yellow-50 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/30',
+  'from-red-50 to-rose-100 dark:from-red-900/20 dark:to-rose-900/30',
+  'from-cyan-50 to-teal-100 dark:from-cyan-900/20 dark:to-teal-900/30',
+  'from-violet-50 to-purple-100 dark:from-violet-900/20 dark:to-purple-900/30',
+  'from-amber-50 to-yellow-100 dark:from-amber-900/20 dark:to-yellow-900/30'
+];
+
+// 媒体图标映射
+const mediaIcons = {
+  '新华社': '📰',
+  '人民日报': '📰',
+  '央视新闻': '📺',
+  'CNN': '📺',
+  'BBC': '📺',
+  '路透社': '📰',
+  '美联社': '📰',
+  '法新社': '📰',
+  '今日头条': '📱',
+  '腾讯新闻': '📱',
+  '网易新闻': '📱',
+  '新浪新闻': '📱',
+  '澎湃新闻': '📰',
+  '界面新闻': '📰',
+  '财新网': '💼',
+  '第一财经': '💼',
+  '华尔街日报': '💼',
+  '金融时报': '💼'
+};
+
+const getRandomGradient = (index) => {
+  return gradientColors[index % gradientColors.length];
+};
+
+const getMediaIcon = (source) => {
+  if (!source) return '';
+  for (const [media, icon] of Object.entries(mediaIcons)) {
+    if (source.includes(media)) {
+      return icon;
+    }
+  }
+  return '';
+};
+
       <!-- Article List -->
       <div v-else class="flex-1 overflow-y-auto">
         <div class="space-y-4">
           <div
-              v-for="article in articles"
+              v-for="(article, index) in articles"
               :key="article.article_id"
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800"
+              class="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800 bg-gradient-to-r"
+              :class="getRandomGradient(index)"
           >
             <div class="flex items-start justify-between w-full">
               <div class="p-6 flex-1">
                 <div class="flex items-start space-x-4">
                   <!-- Head Image -->
-                  <div v-if="article.article_head_image" class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 shadow-sm">
+                  <div v-if="article.article_head_image" class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
                     <img
                         :src="article.article_head_image"
                         :alt="article.article_title"
@@ -214,7 +263,7 @@
                   </div>
                   
                   <!-- Placeholder for articles without image -->
-                  <div v-else class="w-20 h-20 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 flex items-center justify-center flex-shrink-0">
+                  <div v-else class="w-16 h-16 rounded-lg bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 flex items-center justify-center flex-shrink-0">
                     <svg class="w-8 h-8 text-primary-500 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -225,7 +274,7 @@
                     <!-- Title - clickable -->
                     <h3 
                         @click="editArticle(article)"
-                        class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 line-clamp-2"
+                        class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 line-clamp-2"
                     >
                       {{ article.article_title }}
                     </h3>
@@ -235,35 +284,39 @@
                       {{ article.article_summary || '暂无摘要' }}
                     </p>
                     
-                    <!-- Meta info -->
-                    <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mb-3">
-                      <div class="flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                        <span>{{ article.article_author || '未知作者' }}</span>
+                    <!-- Meta info in two columns -->
+                    <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-xs text-gray-500 dark:text-gray-400">
+                      <!-- Left column -->
+                      <div class="space-y-2">
+                        <div class="flex items-center">
+                          <svg class="w-3 h-3 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                          </svg>
+                          <span class="truncate">{{ article.article_author || '未知作者' }}</span>
+                        </div>
+                        <div class="flex items-center">
+                          <svg class="w-3 h-3 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                          </svg>
+                          <span class="truncate">{{ article.create_time }}</span>
+                        </div>
                       </div>
-                      <div class="flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                        </svg>
-                        <span>{{ article.article_source || '未知来源' }}</span>
-                      </div>
-                    </div>
-                    
-                    <!-- Time info -->
-                    <div class="flex flex-wrap items-center gap-4 text-xs text-gray-400 dark:text-gray-500">
-                      <div class="flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                        <span>创建: {{ formatDate(article.create_time) }}</span>
-                      </div>
-                      <div class="flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                        </svg>
-                        <span>更新: {{ formatDate(article.update_time) }}</span>
+                      
+                      <!-- Right column -->
+                      <div class="space-y-2">
+                        <div class="flex items-center">
+                          <span v-if="getMediaIcon(article.article_source)" class="mr-1.5 text-sm">{{ getMediaIcon(article.article_source) }}</span>
+                          <svg v-else class="w-3 h-3 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                          </svg>
+                          <span class="truncate">{{ article.article_source || '未知来源' }}</span>
+                        </div>
+                        <div class="flex items-center">
+                          <svg class="w-3 h-3 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                          </svg>
+                          <span class="truncate">{{ article.update_time }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -271,7 +324,7 @@
               </div>
 
               <!-- Status and Actions -->
-              <div class="flex flex-col items-end space-y-3 p-6">
+              <div class="flex flex-col items-end justify-between space-y-3 p-6 min-h-[120px]">
                 <!-- Status Badge -->
                 <span
                     class="px-3 py-1 text-xs font-semibold rounded-full shadow-sm"
@@ -561,13 +614,8 @@ const getStatusText = (status) => {
 };
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('zh-CN', {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  if (!dateString) return '未知时间';
+  return dateString.replace('T', ' ').substring(0, 16);
 };
 
 const getPageNumbers = () => {
