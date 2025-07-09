@@ -19,31 +19,31 @@
         </div>
 
         <div class="flex items-center space-x-2">
-        <button
-            @click="refreshImages"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-            title="刷新"
-            :disabled="isLoading"
-        >
-          <svg 
-              class="w-5 h-5 text-gray-600 dark:text-gray-400"
-              :class="{ 'animate-spin': isLoading }"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+          <button
+              @click="refreshImages"
+              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+              title="刷新"
+              :disabled="isLoading"
           >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-          </svg>
-        </button>
+            <svg
+                class="w-5 h-5 text-gray-600 dark:text-gray-400"
+                :class="{ 'animate-spin': isLoading }"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          </button>
 
-        <button
-            @click="$emit('close')"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-        >
-          <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
+          <button
+              @click="$emit('close')"
+              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -240,10 +240,10 @@
               <span class="text-gray-300">fileKey:</span>
               <span class="ml-2">{{ viewingImage.file_key }}</span>
             </div>
-<!--            <div>-->
-<!--              <span class="text-gray-300">链接:</span>-->
-<!--              <span class="ml-2"><a :href="viewingImage.url" target="_blank">{{ viewingImage.url }}</a></span>-->
-<!--            </div>-->
+            <!--            <div>-->
+            <!--              <span class="text-gray-300">链接:</span>-->
+            <!--              <span class="ml-2"><a :href="viewingImage.url" target="_blank">{{ viewingImage.url }}</a></span>-->
+            <!--            </div>-->
             <div>
               <span class="text-gray-300">尺寸:</span>
               <span class="ml-2">{{ viewingImage.width }}×{{ viewingImage.height }}</span>
@@ -326,8 +326,24 @@ const totalPages = computed(() => Math.ceil(totalImages.value / pageSize.value))
 
 // Methods
 const loadImages = async (page = 1) => {
-  await loadImages(1);
-  showToast('success', '图片列表已刷新');
+  isLoading.value = true;
+  error.value = '';
+
+  try {
+    const response = await imageApi.getImageList(page, pageSize.value);
+
+    if (response.success) {
+      images.value = response.data.images;
+      totalImages.value = response.data.total;
+      currentPage.value = response.data.page;
+    } else {
+      error.value = response.message;
+    }
+  } catch (err) {
+    error.value = '网络错误，请重试';
+  } finally {
+    isLoading.value = false;
+  }
 };
 
 const formatFileSize = (bytes) => {
