@@ -112,18 +112,18 @@ const parsedContent = computed(() => {
 
 const getStatusClass = (status) => {
   const classes = {
-    0: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
+    0: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
     1: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-    2: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+    2: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
   };
   return classes[status] || classes[0];
 };
 
 const getStatusText = (status) => {
   const texts = {
-    0: '草稿',
+    0: '已下线',
     1: '已发布',
-    2: '已下线'
+    2: '草稿'
   };
   return texts[status] || '未知';
 };

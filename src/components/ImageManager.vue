@@ -13,38 +13,19 @@
           <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
             图片管理
             <span v-if="totalImages > 0" class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">
-                  (共 {{ totalImages }} 张)
-                </span>
+              (共 {{ totalImages }} 张)
+            </span>
           </h2>
         </div>
 
-        <div class="flex items-center space-x-2">
-          <button
-              @click="refreshImages"
-              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-              title="刷新"
-              :disabled="isLoading"
-          >
-            <svg
-                class="w-5 h-5 text-gray-600 dark:text-gray-400"
-                :class="{ 'animate-spin': isLoading }"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-            </svg>
-          </button>
-
-          <button
-              @click="$emit('close')"
-              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-          >
-            <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
+        <button
+            @click="$emit('close')"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+        >
+          <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
 
       <!-- Tabs -->
@@ -53,8 +34,8 @@
             @click="activeTab = 'gallery'"
             class="px-6 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
             :class="activeTab === 'gallery'
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
+            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+            : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
         >
           图片库 ({{ totalImages }})
         </button>
@@ -62,8 +43,8 @@
             @click="activeTab = 'upload'"
             class="px-6 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
             :class="activeTab === 'upload'
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
+            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+            : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'"
         >
           上传图片
         </button>
@@ -191,8 +172,8 @@
               </button>
 
               <span class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
-                    {{ currentPage }} / {{ totalPages }}
-                  </span>
+                {{ currentPage }} / {{ totalPages }}
+              </span>
 
               <button
                   @click="loadImages(currentPage + 1)"
@@ -346,10 +327,6 @@ const loadImages = async (page = 1) => {
   }
 };
 
-const refreshImages = () => {
-  loadImages(currentPage.value);
-};
-
 const formatFileSize = (bytes) => {
   if (bytes === 0) return '0 B';
   const k = 1024;
@@ -426,7 +403,6 @@ const deleteImage = async (image) => {
     }
   } catch (err) {
     showToast('error', '删除失败，请重试');
-    console.error(err);
   }
 };
 

@@ -175,7 +175,7 @@
 
         <!-- Image Management Tab -->
         <div v-show="activeTab === 'images'" class="h-full p-6">
-          <ImageManagerContent/>
+          <ImageManagerContent />
         </div>
 
         <!-- Article Management Tab -->

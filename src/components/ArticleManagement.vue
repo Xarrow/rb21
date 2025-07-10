@@ -90,9 +90,9 @@
                 class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm appearance-none"
             >
               <option :value="null">全部状态</option>
-              <option :value="0">草稿</option>
+              <option :value="2">草稿</option>
               <option :value="1">已发布</option>
-              <option :value="2">已下线</option>
+              <option :value="0">已下线</option>
             </select>
             <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor"
                  viewBox="0 0 24 24">
@@ -258,7 +258,7 @@
                         <span class="truncate max-w-[300px]">{{ article.article_author || '未知作者' }}</span>
                       </div>
                       <div class="flex items-center text-xs">
-                        <MediaIcon :source="article.article_source" />
+                        <MediaIcon :source="article.article_source"/>
                         <span class="font-medium text-gray-500 dark:text-gray-400 mr-1">来源:</span>
                         <span class="truncate max-w-[300px]">{{ article.article_source || '未知来源' }}</span>
                       </div>
@@ -298,6 +298,39 @@
 
                 <!-- Action Buttons -->
                 <div class="flex items-center space-x-0.5">
+                  <!-- Status Toggle -->
+                  <div class="relative">
+                    <button
+                        @click.stop="toggleStatusDropdown(article)"
+                        class="p-1.5 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors duration-200 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                        title="修改状态"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2zm8 0h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2z"/>
+                      </svg>
+                    </button>
+
+                    <!-- Status Dropdown -->
+                    <div
+                        v-if="statusDropdown.show && statusDropdown.articleId === article.article_id"
+                        class="absolute right-0 top-8 z-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 min-w-[120px]"
+                    >
+                      <button
+                          v-for="status in statusOptions"
+                          :key="status.value"
+                          @click.stop="updateArticleStatus(article, status.value)"
+                          class="w-full px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          :class="article.status === status.value ? 'bg-gray-100 dark:bg-gray-700' : ''"
+                      >
+                        <span
+                            class="inline-block w-2 h-2 rounded-full mr-2"
+                            :class="status.colorClass"
+                        ></span>
+                        {{ status.label }}
+                      </button>
+                    </div>
+                  </div>
                   <button
                       @click.stop="viewArticle(article)"
                       class="p-1.5 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors duration-200 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20"
@@ -317,16 +350,6 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                    </svg>
-                  </button>
-                  <button
-                      @click.stop="deleteArticle(article)"
-                      class="p-1.5 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors duration-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
-                      title="删除"
-                  >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
                   </button>
                 </div>
@@ -418,6 +441,7 @@
 
 <script setup>
 import {ref, computed, onMounted, reactive, watch} from 'vue';
+import {onUnmounted} from 'vue';
 import {articleApi} from '../services/api';
 import ArticleModal from './ArticleModal.vue';
 import ArticleViewModal from './ArticleViewModal.vue';
@@ -451,6 +475,18 @@ const showEditModal = ref(false);
 const showViewModal = ref(false);
 const editingArticle = ref(null);
 const viewingArticle = ref(null);
+
+// Status dropdown
+const statusDropdown = ref({
+  show: false,
+  articleId: null
+});
+
+const statusOptions = [
+  {value: 2, label: '草稿', colorClass: 'bg-gray-400'},
+  {value: 1, label: '已发布', colorClass: 'bg-green-500'},
+  {value: 0, label: '已下线', colorClass: 'bg-red-500'}
+];
 
 // Methods
 const loadArticles = async (page = 1) => {
@@ -567,18 +603,18 @@ const handleSave = () => {
 
 const getStatusClass = (status) => {
   const classes = {
-    0: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600',
+    0: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800',
     1: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800',
-    2: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800'
+    2: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600'
   };
   return classes[status] || classes[0];
 };
 
 const getStatusText = (status) => {
   const texts = {
-    0: '草稿',
+    2: '草稿',
     1: '已发布',
-    2: '已下线'
+    0: '已下线'
   };
   return texts[status] || '未知';
 };
@@ -640,6 +676,55 @@ const showToast = (type, message) => {
   }, 3000);
 };
 
+const toggleStatusDropdown = (article) => {
+  if (statusDropdown.value.show && statusDropdown.value.articleId === article.article_id) {
+    statusDropdown.value.show = false;
+    statusDropdown.value.articleId = null;
+  } else {
+    statusDropdown.value.show = true;
+    statusDropdown.value.articleId = article.article_id;
+  }
+};
+
+const updateArticleStatus = async (article, newStatus) => {
+  if (article.status === newStatus) {
+    statusDropdown.value.show = false;
+    statusDropdown.value.articleId = null;
+    return;
+  }
+
+  try {
+    const response = await articleApi.updateArticle(article.article_id, {
+      status: newStatus
+    });
+
+    if (response.success) {
+      // Update local article status
+      const index = articles.value.findIndex(a => a.article_id === article.article_id);
+      if (index > -1) {
+        articles.value[index].status = newStatus;
+      }
+
+      showToast('success', '状态更新成功');
+    } else {
+      showToast('error', response.message || '状态更新失败');
+    }
+  } catch (err) {
+    showToast('error', '状态更新失败，请重试');
+  } finally {
+    statusDropdown.value.show = false;
+    statusDropdown.value.articleId = null;
+  }
+};
+
+// Close dropdown when clicking outside
+const handleClickOutside = (event) => {
+  if (statusDropdown.value.show && !event.target.closest('.relative')) {
+    statusDropdown.value.show = false;
+    statusDropdown.value.articleId = null;
+  }
+};
+
 // Auto search on filter changes (debounced)
 let searchTimeout;
 watch(searchFilters, () => {
@@ -653,6 +738,11 @@ watch(searchFilters, () => {
 
 onMounted(() => {
   loadArticles();
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
