@@ -110,6 +110,8 @@ const handleSubmit = async (data) => {
     let response;
 
     if (props.isEdit) {
+      //  草稿状态
+      data.status = 2
       response = await articleApi.updateArticle(props.article.article_id, data);
     } else {
       response = await articleApi.createArticle(data);
