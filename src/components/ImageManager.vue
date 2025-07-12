@@ -405,6 +405,7 @@ const handleUploadSuccess = (imageData) => {
 };
 
 const showToast = (type, message) => {
+}
 
 onMounted(() => {
   loadImages();
