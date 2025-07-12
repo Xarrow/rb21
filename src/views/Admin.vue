@@ -59,8 +59,8 @@
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
           <li>
-            <button
-                @click="activeTab = 'create'"
+            <router-link
+                to="/admin/create"
                 class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
                 :class="[
                 activeTab === 'create'
@@ -82,11 +82,11 @@
               >
                 发布文章
               </div>
-            </button>
+            </router-link>
           </li>
           <li>
-            <button
-                @click="activeTab = 'images'"
+            <router-link
+                to="/admin/images"
                 class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
                 :class="[
                 activeTab === 'images'
@@ -109,11 +109,11 @@
               >
                 图片管理
               </div>
-            </button>
+            </router-link>
           </li>
           <li>
-            <button
-                @click="activeTab = 'articles'"
+            <router-link
+                to="/admin/articles"
                 class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
                 :class="[
                 activeTab === 'articles'
@@ -136,7 +136,7 @@
               >
                 文章管理
               </div>
-            </button>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -207,12 +207,26 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, computed, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import CreatePostContent from '../components/CreatePostContent.vue';
 import ImageManagerContent from '../components/ImageManagerContent.vue';
 import ArticleManagement from '../components/ArticleManagement.vue';
 
-const activeTab = ref('create');
+const route = useRoute();
+const router = useRouter();
+
+// 根据路由确定当前活跃的标签页
+const activeTab = computed(() => {
+  if (route.meta?.tab) {
+    return route.meta.tab;
+  }
+  // 从路由路径中提取标签页
+  const pathSegments = route.path.split('/');
+  const lastSegment = pathSegments[pathSegments.length - 1];
+  return ['create', 'images', 'articles'].includes(lastSegment) ? lastSegment : 'create';
+});
+
 const sidebarCollapsed = ref(false);
 const toast = ref({show: false, type: 'success', message: ''});
 
@@ -229,11 +243,24 @@ const showToast = (type, message) => {
   }, 3000);
 };
 
+// 监听路由变化，确保在正确的标签页
+watch(() => route.path, (newPath) => {
+  // 如果访问 /admin 但没有子路径，重定向到 /admin/create
+  if (newPath === '/admin') {
+    router.replace('/admin/create');
+  }
+}, { immediate: true });
+
 onMounted(() => {
   // Restore sidebar state from localStorage
   const savedState = localStorage.getItem('sidebarCollapsed');
   if (savedState !== null) {
     sidebarCollapsed.value = savedState === 'true';
+  }
+
+  // 确保初始路由正确
+  if (route.path === '/admin') {
+    router.replace('/admin/create');
   }
 });
 </script>

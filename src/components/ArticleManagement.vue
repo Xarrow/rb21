@@ -485,7 +485,8 @@ const statusDropdown = ref({
 const statusOptions = [
   {value: 2, label: '草稿', colorClass: 'bg-gray-400'},
   {value: 1, label: '已发布', colorClass: 'bg-green-500'},
-  {value: 0, label: '已下线', colorClass: 'bg-red-500'}
+  {value: 0, label: '已下线', colorClass: 'bg-red-500'},
+  {value: 3, label: '物理删除', colorClass: 'bg-red-700'},
 ];
 
 // Methods
@@ -691,6 +692,14 @@ const updateArticleStatus = async (article, newStatus) => {
     statusDropdown.value.show = false;
     statusDropdown.value.articleId = null;
     return;
+  }
+
+  // 物理删除
+  if (newStatus === 3) {
+    if (!confirm(`确定要物理删除文章 "${article.article_title}" 吗？`)) {
+      return;
+    }
+    await articleApi.deleteArticle(article.article_id);
   }
 
   try {

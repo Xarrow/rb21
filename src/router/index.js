@@ -12,6 +12,30 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin,
+    children: [
+      {
+        path: '',
+        redirect: '/admin/create'
+      },
+      {
+        path: 'create',
+        name: 'AdminCreate',
+        component: Admin,
+        meta: { tab: 'create' }
+      },
+      {
+        path: 'images',
+        name: 'AdminImages',
+        component: Admin,
+        meta: { tab: 'images' }
+      },
+      {
+        path: 'articles',
+        name: 'AdminArticles',
+        component: Admin,
+        meta: { tab: 'articles' }
+      }
+    ]
   },
 ];
 

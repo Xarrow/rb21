@@ -26,13 +26,19 @@ const localIconMap = {
   // 请将你的 cnn.png 文件放置在 public/icons/ 目录下
   // 例如：public/icons/cnn.png
   bloomberg: '/icons/Bloomberg.jpeg',
+  twitter: '/icons/Twitter.png',
+  theeconomist: '/icons/TheEconomist.jpg',
 };
 
 const normalizedSource = computed(() => props.source.toLowerCase());
 
 // 计算本地图标路径
 const localIconPath = computed(() => {
-  return localIconMap[normalizedSource.value] || null;
+  if (normalizedSource.value === undefined || normalizedSource.value === ''){
+    return null;
+  }
+  let localPath = localIconMap[normalizedSource.value.toLocaleLowerCase()] || null;
+  return localPath
 });
 
 // 计算文本回退

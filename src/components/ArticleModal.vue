@@ -1,9 +1,9 @@
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click="handleBackdropClick">
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
     <div
         class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl h-[95vh] flex flex-col resize-x overflow-hidden"
         :style="{ width: modalWidth + 'px', minWidth: '800px', maxWidth: '95vw' }"
-        @click.stop
+        @click.stop="() => {}"
     >
       <!-- Header -->
       <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
@@ -155,9 +155,4 @@ const startResize = (e) => {
   document.addEventListener('mouseup', handleMouseUp);
 };
 
-const handleBackdropClick = (event) => {
-  if (event.target === event.currentTarget) {
-    emit('close');
-  }
-};
 </script>
