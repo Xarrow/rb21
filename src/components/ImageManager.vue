@@ -404,9 +404,6 @@ const handleUploadSuccess = (imageData) => {
   showToast('success', '图片上传成功');
 };
 
-const showToast = (type, message) => {
-}
-
 onMounted(() => {
   loadImages();
 });
