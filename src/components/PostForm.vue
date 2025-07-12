@@ -146,8 +146,13 @@
             <div class="flex items-center justify-between">
               <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Content *
-                <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(Markdown supported)</span>
+                <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(Markdown supported, Ctrl+V to paste images)</span>
               </label>
+              <div class="flex items-center space-x-2">
+                <div v-if="isUploadingImage" class="flex items-center space-x-2 text-xs text-primary-600 dark:text-primary-400">
+                  <div class="w-3 h-3 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+                  <span>上传中...</span>
+                </div>
               <button
                   type="button"
                   @click="insertMarkdownSyntax"
@@ -155,12 +160,13 @@
               >
                 Markdown Help
               </button>
+              </div>
             </div>
             <textarea
                 id="content"
                 v-model="form.article_content"
                 class="input-field flex-1 resize-none font-mono"
-                placeholder="Write your post content here... (Markdown syntax supported)
+                placeholder="Write your post content here... (Markdown syntax supported, paste images with Ctrl+V)
 
 Example:
 # Heading
@@ -172,6 +178,7 @@ Example:
 ```code```"
                 :class="{ 'border-red-500 focus:ring-red-500': errors.article_content }"
                 style="padding: 12px; font-size: 14px; min-height: 200px;"
+                :disabled="isUploadingImage"
             ></textarea>
             <p v-if="errors.article_content" class="text-sm text-red-600 dark:text-red-400">
               {{ errors.article_content }}
@@ -211,6 +218,7 @@ Example:
 
 <script setup>
 import {ref, computed, reactive, watch, onMounted} from 'vue';
+import { imageApi } from '../services/api';
 
 const emit = defineEmits(['update:content']);
 
@@ -226,6 +234,7 @@ const props = defineProps({
 });
 
 const isSubmitting = ref(false);
+const isUploadingImage = ref(false);
 
 const form = reactive({
   article_title: '',
@@ -261,6 +270,12 @@ onMounted(() => {
     });
     emit('update:content', form.article_content);
   }
+
+  // 添加粘贴事件监听
+  const contentTextarea = document.getElementById('content');
+  if (contentTextarea) {
+    contentTextarea.addEventListener('paste', handlePaste);
+  }
 });
 
 // Watch for content changes to emit to parent
@@ -268,6 +283,62 @@ const updateContent = () => {
   emit('update:content', form.article_content);
 };
 
+// 处理粘贴事件
+const handlePaste = async (event) => {
+  const items = event.clipboardData?.items;
+  if (!items) return;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item.type.startsWith('image/')) {
+      event.preventDefault();
+      const file = item.getAsFile();
+      if (file) {
+        await uploadAndInsertImage(file);
+      }
+      break;
+    }
+  }
+};
+
+// 上传图片并插入到编辑器
+const uploadAndInsertImage = async (file) => {
+  try {
+    isUploadingImage.value = true;
+    
+    const response = await imageApi.uploadImage(file);
+    
+    if (response.success) {
+      const imageData = response.data;
+      const markdownText = `![${imageData.original_filename}](${imageData.url})`;
+      
+      // 获取当前光标位置
+      const textarea = document.getElementById('content');
+      const cursorPosition = textarea.selectionStart;
+      
+      // 在光标位置插入图片markdown
+      const beforeCursor = form.article_content.substring(0, cursorPosition);
+      const afterCursor = form.article_content.substring(cursorPosition);
+      
+      form.article_content = beforeCursor + markdownText + afterCursor;
+      
+      // 更新光标位置到插入内容之后
+      setTimeout(() => {
+        const newPosition = cursorPosition + markdownText.length;
+        textarea.setSelectionRange(newPosition, newPosition);
+        textarea.focus();
+      }, 0);
+      
+      updateContent();
+    } else {
+      console.error('图片上传失败:', response.message);
+    }
+  } catch (error) {
+    console.error('图片上传错误:', error);
+  } finally {
+    isUploadingImage.value = false;
+  }
+};
 // Validate form fields
 const validateForm = () => {
   errors.article_title = '';
