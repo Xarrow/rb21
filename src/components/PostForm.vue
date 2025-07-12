@@ -306,34 +306,47 @@ const uploadAndInsertImage = async (file) => {
   try {
     isUploadingImage.value = true;
     
+    // 获取当前光标位置
+    const textarea = document.getElementById('content');
+    const cursorPosition = textarea ? textarea.selectionStart : form.article_content.length;
+    
+    // 先插入占位符
+    const placeholder = `![Uploading...](uploading)`;
+    const beforeCursor = form.article_content.substring(0, cursorPosition);
+    const afterCursor = form.article_content.substring(cursorPosition);
+    form.article_content = beforeCursor + placeholder + afterCursor;
+    updateContent();
+    
     const response = await imageApi.uploadImage(file);
     
     if (response.success) {
       const imageData = response.data;
       const markdownText = `![${imageData.original_filename}](${imageData.url})`;
       
-      // 获取当前光标位置
-      const textarea = document.getElementById('content');
-      const cursorPosition = textarea.selectionStart;
-      
-      // 在光标位置插入图片markdown
-      const beforeCursor = form.article_content.substring(0, cursorPosition);
-      const afterCursor = form.article_content.substring(cursorPosition);
-      
-      form.article_content = beforeCursor + markdownText + afterCursor;
-      
-      // 更新光标位置到插入内容之后
-      setTimeout(() => {
-        const newPosition = cursorPosition + markdownText.length;
-        textarea.setSelectionRange(newPosition, newPosition);
-        textarea.focus();
-      }, 0);
-      
+      // 替换占位符为实际的图片链接
+      form.article_content = form.article_content.replace(placeholder, markdownText);
       updateContent();
+      
+      // 设置光标位置到插入内容之后
+      if (textarea) {
+        setTimeout(() => {
+          const newPosition = cursorPosition + markdownText.length;
+          textarea.setSelectionRange(newPosition, newPosition);
+          textarea.focus();
+        }, 0);
+      }
     } else {
+      // 上传失败，移除占位符
+      form.article_content = form.article_content.replace(placeholder, '');
+      updateContent();
+      
       console.error('图片上传失败:', response.message);
     }
   } catch (error) {
+    // 上传出错，移除占位符
+    const placeholder = `![Uploading...](uploading)`;
+    form.article_content = form.article_content.replace(placeholder, '');
+    updateContent();
     console.error('图片上传错误:', error);
   } finally {
     isUploadingImage.value = false;
