@@ -401,9 +401,7 @@ const handleUploadSuccess = (imageData) => {
     loadImages(1);
   }
   activeTab.value = 'gallery';
-  showToast('success', '图片上传成功');
-};
-
+}
 onMounted(() => {
   loadImages();
 });
