@@ -135,6 +135,31 @@ export const imageApi = {
         }
     },
 
+    async uploadImageFromFile(file, filename = null) {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            if (filename) {
+                formData.append('filename', filename);
+            }
+
+            const response = await axios.post(`${API_BASE_URL}/files/images/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }, timeout: 30000,
+            });
+
+            return {
+                success: true,
+                data: response.data,
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.detail || error.message || 'Failed to upload image',
+            };
+        }
+    },
     async uploadImageFromBase64(imageData, filename = null) {
         try {
             const formData = new FormData();
