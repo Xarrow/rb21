@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://local.internal.zeit.fun/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL, timeout: 10000, headers: {
@@ -105,6 +105,20 @@ export const articleApi = {
         } catch (error) {
             return {
                 success: false, message: error.response?.data?.message || error.message || 'Failed to delete article',
+            };
+        }
+    },
+};
+
+export const hotArticleApi = {
+    async getHotArticles(params = {}) {
+        try {
+            const response = await apiClient.get('/articles/hot', { params });
+            return response.data;
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.message || error.message || 'Failed to fetch hot articles',
             };
         }
     },
