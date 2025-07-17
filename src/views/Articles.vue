@@ -2,30 +2,30 @@
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Header -->
     <ArticleHeader
-      :categories="categories"
-      :selected-category="selectedCategory"
-      @category-change="handleCategoryChange"
-      @search="handleSearch"
+        :categories="categories"
+        :selected-category="selectedCategory"
+        @category-change="handleCategoryChange"
+        @search="handleSearch"
     />
 
     <!-- Main Content -->
     <main class="pt-20">
       <!-- Tags Section -->
-<!--      <section class="container mx-auto px-4 py-8">-->
-<!--        <TagCloud-->
-<!--            :tags="tags"-->
-<!--            :selected-tag="selectedTag"-->
-<!--            @tag-select="handleTagSelect"-->
-<!--        />-->
-<!--      </section>-->
+      <!--      <section class="container mx-auto px-4 py-8">-->
+      <!--        <TagCloud-->
+      <!--            :tags="tags"-->
+      <!--            :selected-tag="selectedTag"-->
+      <!--            @tag-select="handleTagSelect"-->
+      <!--        />-->
+      <!--      </section>-->
 
       <!-- Hot Articles Carousel -->
-<!--      <section class="container mx-auto px-4 mb-12">-->
-<!--        <HotArticlesCarousel-->
-<!--            :articles="hotArticles"-->
-<!--            @article-click="handleArticleClick"-->
-<!--        />-->
-<!--      </section>-->
+      <!--      <section class="container mx-auto px-4 mb-12">-->
+      <!--        <HotArticlesCarousel-->
+      <!--            :articles="hotArticles"-->
+      <!--            @article-click="handleArticleClick"-->
+      <!--        />-->
+      <!--      </section>-->
 
       <!-- Content Grid -->
       <div class="container mx-auto px-4">
@@ -33,11 +33,11 @@
           <!-- Articles Waterfall -->
           <div class="lg:col-span-3">
             <ArticleWaterfall
-              :articles="articles"
-              :loading="loading"
-              :has-more="hasMore"
-              @load-more="loadMoreArticles"
-              @article-click="handleArticleClick"
+                :articles="articles"
+                :loading="loading"
+                :has-more="hasMore"
+                @load-more="loadMoreArticles"
+                @article-click="handleArticleClick"
             />
           </div>
 
@@ -45,8 +45,8 @@
           <div class="lg:col-span-1">
             <div class="sticky top-24 space-y-8">
               <PopularTags
-                :tags="popularTags"
-                @tag-click="handleTagSelect"
+                  :tags="popularTags"
+                  @tag-click="handleTagSelect"
               />
             </div>
           </div>
@@ -62,9 +62,9 @@
 
     <!-- Article Detail Modal -->
     <ArticleDetailModal
-      v-if="showDetailModal"
-      :article-id="selectedArticleId"
-      @close="closeDetailModal"
+        v-if="showDetailModal"
+        :article-id="selectedArticleId"
+        @close="closeDetailModal"
     />
   </div>
 </template>

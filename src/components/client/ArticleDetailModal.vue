@@ -18,9 +18,9 @@
         <div class="flex items-center space-x-2">
           <!-- Share Button -->
           <button
-            @click="shareArticle"
-            class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 transition-colors duration-200"
-            title="分享文章"
+              @click="shareArticle"
+              class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 transition-colors duration-200"
+              title="分享文章"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
@@ -29,9 +29,9 @@
 
           <!-- Bookmark Button -->
           <button
-            @click="toggleBookmark"
-            class="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 transition-colors duration-200"
-            title="收藏文章"
+              @click="toggleBookmark"
+              class="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 transition-colors duration-200"
+              title="收藏文章"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -40,8 +40,8 @@
 
           <!-- Close Button -->
           <button
-            @click="$emit('close')"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+              @click="$emit('close')"
+              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
           >
             <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -130,8 +130,8 @@
 
             <!-- Status Badge -->
             <span
-              class="px-3 py-1 text-xs font-semibold rounded-full"
-              :class="getStatusClass(article.status)"
+                class="px-3 py-1 text-xs font-semibold rounded-full"
+                :class="getStatusClass(article.status)"
             >
               {{ getStatusText(article.status) }}
             </span>
@@ -141,9 +141,9 @@
         <!-- Head Image -->
         <div v-if="article.article_head_image" class="px-6 py-4">
           <img
-            :src="article.article_head_image"
-            :alt="article.article_title"
-            class="w-full max-h-96 object-cover rounded-xl shadow-lg"
+              :src="article.article_head_image"
+              :alt="article.article_title"
+              class="w-full max-h-96 object-cover rounded-xl shadow-lg"
           />
         </div>
 
@@ -159,10 +159,10 @@
           <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">相关文章</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
-              v-for="relatedArticle in relatedArticles"
-              :key="relatedArticle.article_id"
-              class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-              @click="loadRelatedArticle(relatedArticle.article_id)"
+                v-for="relatedArticle in relatedArticles"
+                :key="relatedArticle.article_id"
+                class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                @click="loadRelatedArticle(relatedArticle.article_id)"
             >
               <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
                 {{ relatedArticle.article_title }}
@@ -181,23 +181,23 @@
         <!-- Comments Section -->
         <div class="px-6 py-8 border-t border-gray-200 dark:border-gray-700">
           <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">评论区</h3>
-          
+
           <!-- Comment Form -->
           <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6 mb-6">
             <textarea
-              v-model="newComment"
-              placeholder="写下你的想法..."
-              class="w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              rows="4"
+                v-model="newComment"
+                placeholder="写下你的想法..."
+                class="w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                rows="4"
             ></textarea>
             <div class="flex items-center justify-between mt-4">
               <div class="text-sm text-gray-500 dark:text-gray-400">
                 支持 Markdown 语法
               </div>
               <button
-                @click="submitComment"
-                :disabled="!newComment.trim()"
-                class="px-6 py-2 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors duration-200"
+                  @click="submitComment"
+                  :disabled="!newComment.trim()"
+                  class="px-6 py-2 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors duration-200"
               >
                 发表评论
               </button>
@@ -207,9 +207,9 @@
           <!-- Comments List -->
           <div class="space-y-6">
             <div
-              v-for="comment in comments"
-              :key="comment.id"
-              class="flex space-x-4"
+                v-for="comment in comments"
+                :key="comment.id"
+                class="flex space-x-4"
             >
               <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-semibold text-sm">
@@ -321,8 +321,8 @@ const loadRelatedArticles = async () => {
 
     if (response.success) {
       relatedArticles.value = (response.data.items || [])
-        .filter(item => item.article_id !== props.articleId)
-        .slice(0, 4);
+          .filter(item => item.article_id !== props.articleId)
+          .slice(0, 4);
     }
   } catch (err) {
     console.error('Failed to load related articles:', err);

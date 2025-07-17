@@ -116,82 +116,94 @@
             class="post-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer group"
             @click="handleArticleClick(article.article_id)"
         >
-          <!-- Image -->
-          <div v-if="article.article_head_image" class="relative overflow-hidden">
+          <!-- With Image -->
+          <div v-if="article.article_head_image" class="relative">
             <img
                 :src="article.article_head_image"
                 :alt="article.article_title || ''"
                 class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-            <!-- Floating Actions -->
-            <div class="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button
-                  @click.stop="toggleBookmark(article)"
-                  class="action-btn bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:text-red-500"
-                  title="收藏"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-              </button>
-              <button
-                  @click.stop="shareArticle(article)"
-                  class="action-btn bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:text-blue-500"
-                  title="分享"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
-                </svg>
-              </button>
-            </div>
+            <!-- Content Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <!-- Title -->
+                <h3 v-if="article.article_title" class="text-xl font-bold mb-2 line-clamp-2">
+                  {{ article.article_title }}
+                </h3>
 
-            <!-- Overlay Content -->
-            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-              <!-- Title -->
-              <h3 v-if="article.article_title" class="text-white font-bold text-lg mb-2 line-clamp-2">
-                {{ article.article_title }}
-              </h3>
+                <!-- Summary -->
+                <p v-if="article.article_summary" class="text-gray-200 text-sm mb-3 line-clamp-2">
+                  {{ article.article_summary }}
+                </p>
 
-              <!-- Content -->
-              <p v-if="article.article_content" class="text-gray-200 text-sm mb-3 line-clamp-2">
-                {{ article.article_content }}
-              </p>
+                <!-- Meta Info -->
+                <div class="flex items-center justify-between text-xs text-gray-300">
+                  <div class="flex items-center space-x-3">
+                    <!-- Source -->
+                    <div v-if="article.article_source" class="flex items-center space-x-1">
+                      <component
+                          :is="article.article_source_link ? 'a' : 'div'"
+                          :href="article.article_source_link"
+                          :target="article.article_source_link ? '_blank' : undefined"
+                          @click.stop="article.article_source_link ? null : undefined"
+                          class="flex items-center space-x-1 hover:text-white transition-colors"
+                          :class="{ 'cursor-pointer': article.article_source_link }"
+                      >
+                        <MediaIcon :source="article.article_source" icon-size="sm"/>
+                        <span>{{ article.article_source }}</span>
+                      </component>
+                    </div>
 
-              <!-- Meta Info -->
-              <div class="flex items-center justify-between text-xs text-gray-300">
-                <div class="flex items-center space-x-2">
-                  <MediaIcon v-if="article.article_source" :source="article.article_source" icon-size="sm"/>
-                  <span v-if="article.article_source">{{ article.article_source }}</span>
+                    <!-- Author -->
+                    <span v-if="article.article_author">{{ article.article_author }}</span>
+                  </div>
+
+                  <!-- Update Time -->
+                  <span v-if="article.update_time">{{ formatDate(article.update_time) }}</span>
                 </div>
-                <span v-if="article.update_time">{{ formatDate(article.update_time) }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Content for posts without image -->
-          <div v-if="!article.article_head_image" class="p-6">
+          <!-- Without Image - Text Card -->
+          <div v-else class="p-6 min-h-[200px] flex flex-col justify-center">
             <!-- Title -->
-            <h3 v-if="article.article_title"
-                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 line-clamp-2">
+            <h3 v-if="article.article_title" class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 line-clamp-2 leading-tight">
               {{ article.article_title }}
             </h3>
 
-            <!-- Content -->
-            <p v-if="article.article_content" class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-              {{ article.article_content }}
-            </p>
+            <!-- Summary as main content -->
+            <div v-if="article.article_summary" class="flex-1 flex items-center justify-center mb-4">
+              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed  font-serif">
+                {{ article.article_summary }}
+              </p>
+            </div>
 
             <!-- Meta Info -->
-            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-              <div class="flex items-center space-x-2">
-                <MediaIcon v-if="article.article_source" :source="article.article_source" icon-size="sm"/>
-                <span v-if="article.article_source">{{ article.article_source }}</span>
+            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 pt-4">
+              <div class="flex items-center space-x-3">
+                <!-- Source -->
+                <div v-if="article.article_source" class="flex items-center space-x-1">
+                  <component
+                      :is="article.article_source_link ? 'a' : 'div'"
+                      :href="article.article_source_link"
+                      :target="article.article_source_link ? '_blank' : undefined"
+                      @click.stop="article.article_source_link ? null : undefined"
+                      class="flex items-center space-x-1 hover:text-primary-600 transition-colors"
+                      :class="{ 'cursor-pointer': article.article_source_link }"
+                  >
+                    <MediaIcon :source="article.article_source" icon-size="sm"/>
+                    <span>{{ article.article_source }}</span>
+                  </component>
+                </div>
+
+                <!-- Author -->
+                <span v-if="article.article_author">{{ article.article_author }}</span>
               </div>
+
+              <!-- Update Time -->
               <span v-if="article.update_time">{{ formatDate(article.update_time) }}</span>
             </div>
           </div>
@@ -257,11 +269,20 @@
         </button>
       </div>
     </div>
+
+    <!-- Article Detail Modal -->
+    <ArticleDetailCard
+        v-if="showDetailModal"
+        :article-id="selectedArticleId"
+        @close="closeDetailModal"
+    />
   </div>
 </template>
 
 <script setup>
 import MediaIcon from '../MediaIcon.vue';
+import ArticleDetailCard from './ArticleDetailCard.vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   articles: {
@@ -283,6 +304,10 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['load-more', 'article-click', 'refresh']);
+
+// Modal state
+const showDetailModal = ref(false);
+const selectedArticleId = ref('');
 
 // Utility functions
 const formatDate = (dateString) => {
@@ -316,7 +341,13 @@ const getRandomViews = () => {
 
 // Event handlers
 const handleArticleClick = (articleId) => {
-  emit('article-click', articleId);
+  selectedArticleId.value = articleId;
+  showDetailModal.value = true;
+};
+
+const closeDetailModal = () => {
+  showDetailModal.value = false;
+  selectedArticleId.value = '';
 };
 
 const toggleBookmark = (article) => {
