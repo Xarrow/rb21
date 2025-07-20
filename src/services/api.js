@@ -110,6 +110,87 @@ export const articleApi = {
     },
 };
 
+export const tagApi = {
+    async createTag(data) {
+        try {
+            const response = await apiClient.post('/tags/create', data);
+            return response.data;
+        } catch (error) {
+            throw {
+                success: false,
+                code: error.response?.status || 500,
+                message: error.response?.data?.message || error.message || 'Failed to create tag',
+                timestamp: Date.now()
+            };
+        }
+    },
+
+    async getTagById(tagId) {
+        try {
+            const response = await apiClient.get('/tags/get_by_id', {
+                params: { tag_id: tagId }
+            });
+            return response.data;
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.message || error.message || 'Failed to get tag',
+            };
+        }
+    },
+
+    async updateTag(data) {
+        try {
+            const response = await apiClient.post('/tags/update', data);
+            return response.data;
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.message || error.message || 'Failed to update tag',
+            };
+        }
+    },
+
+    async deleteTag(tagId, softDelete = true) {
+        try {
+            const response = await apiClient.post('/tags/delete', {
+                tag_id: tagId,
+                soft_delete: softDelete
+            });
+            return response.data;
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.message || error.message || 'Failed to delete tag',
+            };
+        }
+    },
+
+    async getTagList(page = 1, pageSize = 10, status = null) {
+        try {
+            const params = {
+                page,
+                page_size: pageSize
+            };
+
+            if (status !== null) {
+                params.status = status;
+            }
+
+            const response = await apiClient.get('/tags/list', { params });
+            return {
+                success: true,
+                data: response.data
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error.response?.data?.message || error.message || 'Failed to fetch tags',
+            };
+        }
+    },
+};
+
 export const hotArticleApi = {
     async getHotArticles(params = {}) {
         try {

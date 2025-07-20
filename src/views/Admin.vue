@@ -113,6 +113,32 @@
           </li>
           <li>
             <router-link
+                to="/admin/tags"
+                class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
+                :class="[
+                activeTab === 'tags'
+                  ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
+                sidebarCollapsed ? 'justify-center' : ''
+              ]"
+                :title="sidebarCollapsed ? '标签管理' : ''"
+            >
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+              </svg>
+              <span v-show="!sidebarCollapsed" class="ml-3">标签管理</span>
+
+              <!-- Tooltip for collapsed state -->
+              <div
+                  v-if="sidebarCollapsed"
+                  class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
+              >
+                标签管理
+              </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link
                 to="/admin/articles"
                 class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
                 :class="[
@@ -178,6 +204,11 @@
           <ImageManagerContent />
         </div>
 
+        <!-- Tag Management Tab -->
+        <div v-show="activeTab === 'tags'" class="h-full">
+          <TagManagement/>
+        </div>
+
         <!-- Article Management Tab -->
         <div v-show="activeTab === 'articles'" class="h-full">
           <ArticleManagement/>
@@ -194,6 +225,7 @@ import {ref, onMounted, computed, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import CreatePostContent from '../components/CreatePostContent.vue';
 import ImageManagerContent from '../components/ImageManagerContent.vue';
+import TagManagement from '../components/TagManagement.vue';
 import ArticleManagement from '../components/ArticleManagement.vue';
 import ToastMessage from '../components/ToastMessage.vue';
 import { useToast } from '../composables/useToast';

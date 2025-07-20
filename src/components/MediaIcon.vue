@@ -1,7 +1,8 @@
 <template>
   <span class="flex-shrink-0 mr-1 group" :class="sizeClass">
     <!-- 如果存在本地图标路径，则显示本地图片 -->
-    <img v-if="localIconPath" :src="localIconPath" :alt="source + ' icon'" class="object-contain transition-transform duration-200 ease-in-out group-hover:scale-110"/>
+    <img v-if="localIconPath" :src="localIconPath" :alt="source + ' icon'"
+         class="object-contain transition-transform duration-200 ease-in-out group-hover:scale-110"/>
     <!-- 否则，如果都没有，则显示来源的第一个字母 -->
     <span v-else-if="sourceText" class="text-xs font-medium">{{ sourceText.charAt(0).toUpperCase() }}</span>
   </span>

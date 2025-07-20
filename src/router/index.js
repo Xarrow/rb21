@@ -42,6 +42,12 @@ const routes = [
         meta: { tab: 'images' }
       },
       {
+        path: 'tags',
+        name: 'AdminTags',
+        component: Admin,
+        meta: { tab: 'tags' }
+      },
+      {
         path: 'articles',
         name: 'AdminArticles',
         component: Admin,
