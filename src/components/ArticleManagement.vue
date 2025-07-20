@@ -418,7 +418,7 @@
         @delete="deleteArticle"
     />
 
-    <ToastMessage />
+    <ToastMessage/>
   </div>
 </template>
 
@@ -430,7 +430,7 @@ import ArticleModal from './ArticleModal.vue';
 import ArticleViewModal from './ArticleViewModal.vue';
 import MediaIcon from './MediaIcon.vue'; // Import the new MediaIcon component
 import ToastMessage from './ToastMessage.vue';
-import { useToast } from '../composables/useToast';
+import {useToast} from '../composables/useToast';
 
 // State
 const articles = ref([]);
@@ -438,7 +438,7 @@ const isLoading = ref(false);
 const error = ref('');
 
 // Toast
-const { showToast } = useToast();
+const {showToast} = useToast();
 
 // Search filters
 const searchFilters = reactive({
@@ -680,8 +680,29 @@ const updateArticleStatus = async (article, newStatus) => {
     if (!confirm(`确定要物理删除文章 "${article.article_title}" 吗？`)) {
       return;
     }
-    await articleApi.deleteArticle(article.article_id);
+    try {
+      const response = await articleApi.physicsDeleteArticle(article.article_id);
+      if (response.success) {
+        // Update local article status
+        const index = articles.value.findIndex(a => a.article_id === article.article_id);
+        if (index > -1) {
+          articles.value[index].status = newStatus;
+        }
+
+        showToast('success', '状态更新成功');
+      } else {
+        showToast('error', response.message || '状态更新失败');
+      }
+    } catch (err) {
+      showToast('error', '物理删除失败，请重试');
+    } finally {
+      statusDropdown.value.show = false;
+      statusDropdown.value.articleId = null;
+      return
+    }
+
   }
+  // 其他状态
 
   try {
     const response = await articleApi.updateArticle(article.article_id, {

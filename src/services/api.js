@@ -96,10 +96,25 @@ export const articleApi = {
         }
     },
 
-    async deleteArticle(articleId) {
+    async deleteArticle(articleId,) {
         try {
-            const response = await apiClient.post('/articles/delete', {}, {
-                params: {article_id: articleId}
+            const response = await apiClient.post('/articles/delete',
+                {article_id: articleId}, {
+                    params: {}
+                });
+            return response.data;
+        } catch (error) {
+            return {
+                success: false, message: error.response?.data?.message || error.message || 'Failed to delete article',
+            };
+        }
+    },
+    async physicsDeleteArticle(articleId) {
+        try {
+            const response = await apiClient.post('/articles/delete', {
+                article_id: articleId, soft_delete: false
+            }, {
+                params: {}
             });
             return response.data;
         } catch (error) {
@@ -128,7 +143,7 @@ export const tagApi = {
     async getTagById(tagId) {
         try {
             const response = await apiClient.get('/tags/get_by_id', {
-                params: { tag_id: tagId }
+                params: {tag_id: tagId}
             });
             return response.data;
         } catch (error) {
@@ -177,7 +192,7 @@ export const tagApi = {
                 params.status = status;
             }
 
-            const response = await apiClient.get('/tags/list', { params });
+            const response = await apiClient.get('/tags/list', {params});
             return {
                 success: true,
                 data: response.data
@@ -194,7 +209,7 @@ export const tagApi = {
 export const hotArticleApi = {
     async getHotArticles(params = {}) {
         try {
-            const response = await apiClient.get('/articles/hot', { params });
+            const response = await apiClient.get('/articles/hot', {params});
             return response.data;
         } catch (error) {
             return {
