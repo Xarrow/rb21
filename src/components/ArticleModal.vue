@@ -110,8 +110,6 @@ const handleSubmit = async (data) => {
     let response;
 
     if (props.isEdit) {
-      //  草稿状态
-      data.status = 2
       response = await articleApi.updateArticle(props.article.article_id, data);
     } else {
       response = await articleApi.createArticle(data);
@@ -140,9 +138,7 @@ const startResize = (e) => {
     const deltaX = e.clientX - startX;
     const modalWidth = modalRect.width;
     const deltaPercent = (deltaX / modalWidth) * 100;
-    const newWidth = Math.max(30, Math.min(70, startWidth + deltaPercent));
-
-    leftPanelWidth.value = newWidth;
+    leftPanelWidth.value = Math.max(30, Math.min(70, startWidth + deltaPercent));
   };
 
   const handleMouseUp = () => {

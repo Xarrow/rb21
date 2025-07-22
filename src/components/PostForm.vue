@@ -66,6 +66,22 @@
             </div>
           </div>
 
+          <!-- Source Link -->
+          <div class="space-y-1">
+            <label for="source_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Source Link
+              <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(optional)</span>
+            </label>
+            <input
+                id="source_link"
+                v-model="form.article_source_link"
+                type="url"
+                class="input-field"
+                placeholder="https://example.com"
+                style="padding: 8px 12px; font-size: 14px;"
+            />
+          </div>
+
           <!-- Author -->
           <div class="space-y-1">
             <label for="author" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -141,6 +157,79 @@
             </div>
           </div>
 
+          <!-- Tags -->
+          <div class="space-y-1">
+            <label for="tags" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              标签
+              <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(optional)</span>
+            </label>
+            <div v-if="loadingTags" class="text-sm text-gray-500 dark:text-gray-400">
+              Loading tags...
+            </div>
+            <div v-else class="space-y-2">
+              <div class="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+                <label
+                    v-for="tag in tags"
+                    :key="tag.tag_id"
+                    class="flex items-center space-x-2 cursor-pointer"
+                >
+                  <input
+                      type="checkbox"
+                      :value="tag.tag_id"
+                      v-model="form.article_tags"
+                      class="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                  />
+                  <span class="text-sm text-gray-700 dark:text-gray-300">{{ tag.tag_name }}</span>
+                </label>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                Selected: {{ form.article_tags.length }} tags
+              </div>
+            </div>
+          </div>
+
+          <!-- Display Style -->
+          <div class="space-y-1">
+            <label for="show_style" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Display Style
+            </label>
+            <select
+                id="show_style"
+                v-model="form.show_style"
+                class="input-field"
+                style="padding: 8px 12px; font-size: 14px;"
+            >
+              <option
+                  v-for="option in showStyleOptions"
+                  :key="option.value"
+                  :value="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div class="space-y-1">
+            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              发布状态
+            </label>
+            <select
+                id="status"
+                v-model="form.status"
+                class="input-field"
+                style="padding: 8px 12px; font-size: 14px;"
+            >
+              <option
+                  v-for="option in statusOptions"
+                  :key="option.value"
+                  :value="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
           <!-- Content -->
           <div class="space-y-1 flex-1 flex flex-col">
             <div class="flex items-center justify-between">
@@ -153,13 +242,13 @@
                   <div class="w-3 h-3 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
                   <span>上传中...</span>
                 </div>
-              <button
-                  type="button"
-                  @click="insertMarkdownSyntax"
-                  class="text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
-              >
-                Markdown Help
-              </button>
+                <button
+                    type="button"
+                    @click="insertMarkdownSyntax"
+                    class="text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                >
+                  Markdown Help
+                </button>
               </div>
             </div>
             <textarea
@@ -218,7 +307,7 @@ Example:
 
 <script setup>
 import {ref, computed, reactive, watch, onMounted} from 'vue';
-import { imageApi } from '../services/api';
+import {imageApi, tagApi} from '../services/api';
 
 const emit = defineEmits(['update:content']);
 
@@ -240,9 +329,13 @@ const form = reactive({
   article_title: '',
   article_content: '',
   article_source: '',
+  article_source_link: '',
   article_author: '',
   article_summary: '',
   article_head_image: '',
+  article_tags: [],
+  show_style: 'article',
+  status: 1
 });
 
 const errors = reactive({
@@ -250,6 +343,19 @@ const errors = reactive({
   article_content: '',
   article_source: '',
 });
+
+const tags = ref([]);
+const loadingTags = ref(false);
+
+const showStyleOptions = [
+  {value: 'article', label: '文章'},
+  {value: 'post', label: '帖子'}
+];
+
+const statusOptions = [
+  {value: 1, label: '发布'},
+  {value: 0, label: '草稿'}
+];
 
 const isValid = computed(() => {
   return form.article_title.trim() &&
@@ -260,8 +366,30 @@ const isValid = computed(() => {
       !errors.article_source;
 });
 
+// Load tags
+const loadTags = async () => {
+  loadingTags.value = true;
+  try {
+    const response = await tagApi.getTagList(1, 100, 1);
+    console.log(response)
+    if (response.success && response.data) {
+      tags.value = response.data.data || [];
+      console.log('Loaded tags:', tags.value);
+    } else {
+      console.error('Failed to load tags:', response.message);
+      tags.value = [];
+    }
+  } catch (error) {
+    console.error('Failed to load tags:', error);
+    tags.value = [];
+  } finally {
+    loadingTags.value = false;
+  }
+};
+
 // Initialize form with initial data if provided
 onMounted(() => {
+  loadTags();
   if (props.initialData) {
     Object.keys(form).forEach(key => {
       if (props.initialData[key] !== undefined) {
@@ -305,28 +433,28 @@ const handlePaste = async (event) => {
 const uploadAndInsertImage = async (file) => {
   try {
     isUploadingImage.value = true;
-    
+
     // 获取当前光标位置
     const textarea = document.getElementById('content');
     const cursorPosition = textarea ? textarea.selectionStart : form.article_content.length;
-    
+
     // 先插入占位符
     const placeholder = `![Uploading...](uploading)`;
     const beforeCursor = form.article_content.substring(0, cursorPosition);
     const afterCursor = form.article_content.substring(cursorPosition);
     form.article_content = beforeCursor + placeholder + afterCursor;
     updateContent();
-    
+
     const response = await imageApi.uploadImage(file);
-    
+
     if (response.success) {
       const imageData = response.data;
       const markdownText = `![${imageData.original_filename}](${imageData.url})`;
-      
+
       // 替换占位符为实际的图片链接
       form.article_content = form.article_content.replace(placeholder, markdownText);
       updateContent();
-      
+
       // 设置光标位置到插入内容之后
       if (textarea) {
         setTimeout(() => {
@@ -339,7 +467,7 @@ const uploadAndInsertImage = async (file) => {
       // 上传失败，移除占位符
       form.article_content = form.article_content.replace(placeholder, '');
       updateContent();
-      
+
       console.error('图片上传失败:', response.message);
     }
   } catch (error) {
@@ -399,9 +527,13 @@ const handleSubmit = async () => {
       article_title: form.article_title.trim(),
       article_content: form.article_content.trim(),
       article_source: form.article_source.trim(),
+      article_source_link: form.article_source_link?.trim() || "",
       article_author: form.article_author?.trim() || "",
       article_summary: form.article_summary?.trim() || "",
       article_head_image: form.article_head_image?.trim() || "",
+      article_tags: form.article_tags,
+      show_style: form.show_style,
+      status: form.status
     });
   } finally {
     isSubmitting.value = false;
@@ -412,9 +544,13 @@ const resetForm = () => {
   form.article_title = '';
   form.article_content = '';
   form.article_source = '';
+  form.article_source_link = '';
   form.article_author = '';
   form.article_summary = '';
   form.article_head_image = '';
+  form.article_tags = [];
+  form.show_style = 'article';
+  form.status = 1;
 
   errors.article_title = '';
   errors.article_content = '';

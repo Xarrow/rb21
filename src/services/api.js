@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://local.internal.zeit.fun/api';
+// const API_BASE_URL = 'https://local.internal.zeit.fun/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL, timeout: 10000, headers: {
@@ -86,6 +87,7 @@ export const articleApi = {
 
     async updateArticle(articleId, data) {
         try {
+            debugger
             data.article_id = articleId;
             const response = await apiClient.post('/articles/update', data);
             return response.data;

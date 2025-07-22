@@ -162,12 +162,12 @@
                   >
                     {{ tag.status === 1 ? '禁用' : '启用' }}
                   </button>
-                  <button
-                      @click="softDeleteTag(tag)"
-                      class="w-full px-3 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
-                  >
-                    禁用
-                  </button>
+<!--                  <button-->
+<!--                      @click="softDeleteTag(tag)"-->
+<!--                      class="w-full px-3 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"-->
+<!--                  >-->
+<!--                    禁用-->
+<!--                  </button>-->
                   <button
                       @click="physicsDeleteTag(tag)"
                       class="w-full px-3 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"

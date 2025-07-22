@@ -90,7 +90,7 @@
                 class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm appearance-none"
             >
               <option :value="null">全部状态</option>
-              <option :value="2">草稿</option>
+<!--              <option :value="2">草稿</option>-->
               <option :value="1">已发布</option>
               <option :value="0">已下线</option>
             </select>
@@ -470,9 +470,9 @@ const statusDropdown = ref({
 });
 
 const statusOptions = [
-  {value: 2, label: '草稿', colorClass: 'bg-gray-400'},
-  {value: 1, label: '已发布', colorClass: 'bg-green-500'},
-  {value: 0, label: '已下线', colorClass: 'bg-red-500'},
+  // {value: 2, label: '草稿', colorClass: 'bg-gray-400'},
+  {value: 1, label: '发布', colorClass: 'bg-green-500'},
+  {value: 0, label: '下线', colorClass: 'bg-red-500'},
   {value: 3, label: '物理删除', colorClass: 'bg-red-700'},
 ];
 
@@ -600,7 +600,7 @@ const getStatusClass = (status) => {
 
 const getStatusText = (status) => {
   const texts = {
-    2: '草稿',
+    // 2: '草稿',
     1: '已发布',
     0: '已下线'
   };
