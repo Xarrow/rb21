@@ -166,24 +166,29 @@
             <div v-if="loadingTags" class="text-sm text-gray-500 dark:text-gray-400">
               Loading tags...
             </div>
-            <div v-else class="space-y-2">
-              <div class="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-                <label
-                    v-for="tag in tags"
-                    :key="tag.tag_id"
-                    class="flex items-center space-x-2 cursor-pointer"
+            <div v-else class="space-y-3">
+              <div class="flex flex-wrap gap-2">
+                <div
+                  v-for="tag in availableTags"
+                  :key="tag.tag_id"
+                  @click="toggleTagSelection(tag.tag_id)"
+                  class="px-3 py-1 rounded-full text-sm cursor-pointer transition-all duration-200 flex items-center"
+                  :class="getTagClass(tag.tag_id)"
                 >
-                  <input
-                      type="checkbox"
-                      :value="tag.tag_id"
-                      v-model="form.article_tags"
-                      class="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-                  />
-                  <span class="text-sm text-gray-700 dark:text-gray-300">{{ tag.tag_name }}</span>
-                </label>
+                  <span>{{ tag.tag_name }}</span>
+                  <svg
+                    v-if="isCurrentTag(tag.tag_id)"
+                    class="w-3 h-3 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
               </div>
               <div class="text-xs text-gray-500 dark:text-gray-400">
-                Selected: {{ form.article_tags.length }} tags
+                已选择: {{ form.article_tags.length }} 个标签
               </div>
             </div>
           </div>
@@ -344,7 +349,9 @@ const errors = reactive({
   article_source: '',
 });
 
-const tags = ref([]);
+const availableTags = ref([]);
+const currentTags = ref([]);
+
 const loadingTags = ref(false);
 
 const showStyleOptions = [
@@ -371,17 +378,15 @@ const loadTags = async () => {
   loadingTags.value = true;
   try {
     const response = await tagApi.getTagList(1, 100, 1);
-    console.log(response)
     if (response.success && response.data) {
-      tags.value = response.data.data || [];
-      console.log('Loaded tags:', tags.value);
+      availableTags.value = response.data.data || [];
     } else {
       console.error('Failed to load tags:', response.message);
-      tags.value = [];
+      availableTags.value = [];
     }
   } catch (error) {
     console.error('Failed to load tags:', error);
-    tags.value = [];
+    availableTags.value = [];
   } finally {
     loadingTags.value = false;
   }
@@ -396,6 +401,13 @@ onMounted(() => {
         form[key] = props.initialData[key];
       }
     });
+    
+    // Set current tags if available
+    if (props.initialData.current_tags) {
+      currentTags.value = props.initialData.current_tags;
+      form.article_tags = currentTags.value.map(tag => tag.tag_id);
+    }
+    
     emit('update:content', form.article_content);
   }
 
@@ -480,6 +492,32 @@ const uploadAndInsertImage = async (file) => {
     isUploadingImage.value = false;
   }
 };
+
+const getTagClass = (tagId) => {
+  if (form.article_tags.includes(tagId)) {
+    // Selected tag
+    return 'bg-blue-500 text-white shadow';
+  } else if (isCurrentTag(tagId)) {
+    // Current article tag (but not selected in form)
+    return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-300 dark:border-purple-700';
+  } else {
+    // Regular available tag
+    return 'bg-gray-100 dark:bg-gray-700/80 text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600';
+  }
+};
+
+const getTagHoverClass = (tagId) => {
+  if (form.article_tags.includes(tagId)) {
+    return 'hover:bg-blue-600';
+  } else {
+    return 'hover:bg-gray-200 dark:hover:bg-gray-600';
+  }
+};
+
+const isCurrentTag = (tagId) => {
+  return currentTags.value.some(tag => tag.tag_id === tagId);
+};
+
 // Validate form fields
 const validateForm = () => {
   errors.article_title = '';
@@ -574,6 +612,18 @@ const insertMarkdownSyntax = () => {
   if (!form.article_content) {
     form.article_content = examples;
     updateContent();
+  }
+};
+
+// Toggle tag selection
+const toggleTagSelection = (tagId) => {
+  const index = form.article_tags.indexOf(tagId);
+  if (index > -1) {
+    // Remove tag
+    form.article_tags.splice(index, 1);
+  } else {
+    // Add tag
+    form.article_tags.push(tagId);
   }
 };
 
