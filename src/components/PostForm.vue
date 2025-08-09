@@ -371,7 +371,6 @@ const loadTags = async () => {
   loadingTags.value = true;
   try {
     const response = await tagApi.getTagList(1, 100, 1);
-    debugger
     console.log(response)
     if (response.success && response.data) {
       tags.value = response.data.data || [];

@@ -87,7 +87,6 @@ export const articleApi = {
 
     async updateArticle(articleId, data) {
         try {
-            debugger
             data.article_id = articleId;
             const response = await apiClient.post('/articles/update', data);
             return response.data;
