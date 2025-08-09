@@ -90,7 +90,7 @@
                 class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm appearance-none"
             >
               <option :value="null">全部状态</option>
-<!--              <option :value="2">草稿</option>-->
+              <!--              <option :value="2">草稿</option>-->
               <option :value="1">已发布</option>
               <option :value="0">已下线</option>
             </select>
@@ -246,6 +246,23 @@
                       <p class="text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed flex-grow">
                         {{ article.article_summary || '暂无摘要' }}
                       </p>
+                    </div>
+
+                    <!-- Tags -->
+                    <div v-if="article.current_tags && article.current_tags.length > 0" class="flex items-start text-sm mb-2">
+                      <span class="font-medium text-gray-500 dark:text-gray-400 mr-1 flex-shrink-0">标签:</span>
+                      <div class="flex flex-wrap gap-1.5 flex-grow">
+                        <span
+                            v-for="tag in article.current_tags"
+                            :key="tag.tag_id"
+                            class="inline-flex items-center px-2 py-0.5 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium border border-blue-200 dark:border-blue-700"
+                        >
+                          <svg class="w-2.5 h-2.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                          </svg>
+                          {{ tag.tag_name }}
+                        </span>
+                      </div>
                     </div>
 
                     <!-- Meta info -->
@@ -486,6 +503,7 @@ const loadArticles = async (page = 1) => {
     const params = {
       page,
       per_page: pageSize.value,
+      include_tags: true,
       ...searchFilters
     };
 
