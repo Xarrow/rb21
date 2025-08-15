@@ -1,12 +1,13 @@
 <template>
   <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <AppHeader />
+    <CommonHeader :fullMode="false" />
+<!--    <CommonHeader />-->
     <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import AppHeader from './components/AppHeader.vue';
+import CommonHeader from "./components/CommonHeader.vue";
 </script>
 
 <style>

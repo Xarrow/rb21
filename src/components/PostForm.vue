@@ -153,6 +153,7 @@
                   alt="Head image preview"
                   class="w-full max-w-xs h-32 object-cover rounded-lg border border-gray-200 dark:border-gray-600"
                   @error="onImageError"
+                  @load="onImageLoad"
               />
             </div>
           </div>
@@ -338,6 +339,8 @@ const form = reactive({
   article_author: '',
   article_summary: '',
   article_head_image: '',
+  article_head_image_width: 0,
+  article_head_image_height: 0,
   article_tags: [],
   show_style: 'article',
   status: 1
@@ -556,6 +559,11 @@ const onImageError = (event) => {
   event.target.style.display = 'none';
 };
 
+const onImageLoad = (event) => {
+  form.article_head_image_width = event.target.naturalWidth;
+  form.article_head_image_height = event.target.naturalHeight;
+};
+
 const handleSubmit = async () => {
   if (!validateForm()) return;
 
@@ -569,6 +577,8 @@ const handleSubmit = async () => {
       article_author: form.article_author?.trim() || "",
       article_summary: form.article_summary?.trim() || "",
       article_head_image: form.article_head_image?.trim() || "",
+      article_head_image_width: form.article_head_image_width,
+      article_head_image_height: form.article_head_image_height,
       article_tags: form.article_tags,
       show_style: form.show_style,
       status: form.status

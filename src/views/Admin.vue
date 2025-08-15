@@ -58,32 +58,32 @@
       <!-- Navigation -->
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
-          <li>
-            <router-link
-                to="/admin/create"
-                class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"
-                :class="[
-                activeTab === 'create'
-                  ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
-                sidebarCollapsed ? 'justify-center' : ''
-              ]"
-                :title="sidebarCollapsed ? '发布文章' : ''"
-            >
-              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-              </svg>
-              <span v-show="!sidebarCollapsed" class="ml-3">发布文章</span>
+<!--          <li>-->
+<!--            <router-link-->
+<!--                to="/admin/create"-->
+<!--                class="w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors duration-200 group relative"-->
+<!--                :class="[-->
+<!--                activeTab === 'create'-->
+<!--                  ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'-->
+<!--                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',-->
+<!--                sidebarCollapsed ? 'justify-center' : ''-->
+<!--              ]"-->
+<!--                :title="sidebarCollapsed ? '发布文章' : ''"-->
+<!--            >-->
+<!--              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">-->
+<!--                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>-->
+<!--              </svg>-->
+<!--              <span v-show="!sidebarCollapsed" class="ml-3">发布文章</span>-->
 
-              <!-- Tooltip for collapsed state -->
-              <div
-                  v-if="sidebarCollapsed"
-                  class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-              >
-                发布文章
-              </div>
-            </router-link>
-          </li>
+<!--              &lt;!&ndash; Tooltip for collapsed state &ndash;&gt;-->
+<!--              <div-->
+<!--                  v-if="sidebarCollapsed"-->
+<!--                  class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"-->
+<!--              >-->
+<!--                发布文章-->
+<!--              </div>-->
+<!--            </router-link>-->
+<!--          </li>-->
           <li>
             <router-link
                 to="/admin/images"

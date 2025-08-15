@@ -1,6 +1,10 @@
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 "
-          :class="{ 'shadow-lg': scrolled }">
+  <header class="z-50 bg-white/95 dark:bg-gray-900/95"
+          :class="{
+            'fixed top-0 left-0 right-0 shadow-lg': fullMode && scrolled,
+            'fixed top-0 left-0 right-0': fullMode && !scrolled,
+            'static': !fullMode
+          }">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
@@ -13,12 +17,12 @@
           </div>
           <div>
             <h1 class="text-xl font-bold gradient-text">ArticleHub</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400">现代化阅读体验</p>
+            <p v-if="fullMode" class="text-xs text-gray-500 dark:text-gray-400">现代化阅读体验</p>
           </div>
         </router-link>
 
-        <!-- Navigation -->
-        <nav class="hidden md:flex items-center space-x-6">
+        <!-- Navigation - Full Mode -->
+        <nav v-if="fullMode" class="hidden md:flex items-center space-x-6">
           <button
               v-for="category in categories"
               :key="category.name"
@@ -27,17 +31,33 @@
               :class="isActiveCategory(category.name) ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'"
           >
             {{ category.name }}
-            <span class="ml-1 text-xs opacity-60">({{ category.count }})</span>
+            <span v-if="category.count" class="ml-1 text-xs opacity-60">({{ category.count }})</span>
             <div v-if="isActiveCategory(category.name)"
                  class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"></div>
             <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></div>
           </button>
         </nav>
 
+        <!-- Navigation - Simple Mode -->
+        <nav v-else class="hidden md:flex items-center space-x-6">
+          <router-link
+              to="/"
+              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
+          >
+            Home
+          </router-link>
+          <router-link
+              to="/admin"
+              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
+          >
+            Admin
+          </router-link>
+        </nav>
+
         <!-- Actions -->
         <div class="flex items-center space-x-4">
-          <!-- Search -->
-          <div class="relative hidden sm:block">
+          <!-- Search - Only in Full Mode -->
+          <div v-if="fullMode" class="relative hidden sm:block">
             <input
                 v-model="searchQuery"
                 type="text"
@@ -74,7 +94,7 @@
             </svg>
           </button>
 
-          <!-- Mobile Menu -->
+          <!-- Mobile Menu Button -->
           <button
               @click="showMobileMenu = !showMobileMenu"
               class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
@@ -88,8 +108,8 @@
 
       <!-- Mobile Menu -->
       <div v-if="showMobileMenu" class="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
-        <!-- Mobile Search -->
-        <div class="relative mb-4">
+        <!-- Mobile Search - Only in Full Mode -->
+        <div v-if="fullMode" class="relative mb-4">
           <input
               v-model="searchQuery"
               type="text"
@@ -102,20 +122,46 @@
           </svg>
         </div>
 
-        <!-- Mobile Categories -->
+        <!-- Mobile Navigation Links -->
         <div class="space-y-2">
-          <button
-              v-for="category in categories"
-              :key="category.name"
-              @click="handleMobileCategoryClick(category.name)"
-              class="block w-full text-left px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
-              :class="isActiveCategory(category.name)
-              ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
-              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'"
-          >
-            {{ category.name }}
-            <span class="ml-1 text-xs opacity-60">({{ category.count }})</span>
-          </button>
+          <template v-if="fullMode">
+            <button
+                v-for="category in categories"
+                :key="category.name"
+                @click="handleMobileCategoryClick(category.name)"
+                class="block w-full text-left px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
+                :class="isActiveCategory(category.name)
+                ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
+                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'"
+            >
+              {{ category.name }}
+              <span v-if="category.count" class="ml-1 text-xs opacity-60">({{ category.count }})</span>
+            </button>
+          </template>
+          <template v-else>
+            <router-link
+                to="/"
+                class="block px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
+                :class="{
+                  'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400': $route.path === '/',
+                  'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800': $route.path !== '/'
+                }"
+                @click="showMobileMenu = false"
+            >
+              Home
+            </router-link>
+            <router-link
+                to="/admin"
+                class="block px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
+                :class="{
+                  'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400': $route.path === '/admin',
+                  'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800': $route.path !== '/admin'
+                }"
+                @click="showMobileMenu = false"
+            >
+              Admin
+            </router-link>
+          </template>
         </div>
       </div>
     </div>
@@ -124,8 +170,15 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const props = defineProps({
+  fullMode: {
+    type: Boolean,
+    default: true
+  },
   categories: {
     type: Array,
     default: () => []

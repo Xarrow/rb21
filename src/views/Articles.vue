@@ -1,53 +1,47 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <!-- Header -->
-    <ArticleHeader
-        :categories="categories"
-        :selected-category="selectedCategory"
-        @category-change="handleCategoryChange"
-        @search="handleSearch"
-    />
 
     <!-- Main Content -->
-    <main class="pt-20">
-      <!-- Tags Section -->
-      <!--      <section class="container mx-auto px-4 py-8">-->
-      <!--        <TagCloud-->
-      <!--            :tags="tags"-->
-      <!--            :selected-tag="selectedTag"-->
-      <!--            @tag-select="handleTagSelect"-->
-      <!--        />-->
-      <!--      </section>-->
-
-      <!-- Hot Articles Carousel -->
-      <!--      <section class="container mx-auto px-4 mb-12">-->
-      <!--        <HotArticlesCarousel-->
-      <!--            :articles="hotArticles"-->
-      <!--            @article-click="handleArticleClick"-->
-      <!--        />-->
-      <!--      </section>-->
+    <main class="pt-0 pb-6">
+      <!-- Ad Banner Container -->
+      <div class="container mx-auto px-4 mb-8">
+        <!-- <AdBanner/> -->
+      </div>
 
       <!-- Content Grid -->
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div class="w-full px-4">
+        <div class="flex flex-col lg:flex-row gap-0">
+          <!-- Mobile Sidebar (shown above content on mobile) -->
+          <div class="lg:hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
+              <PopularTags
+                  :tags="popularTags"
+                  @tag-click="handleTagSelect"
+              />
+            </div>
+          </div>
+
           <!-- Articles Waterfall -->
-          <div class="lg:col-span-3">
+          <div class="w-full lg:w-[calc(100%)]">
             <ArticleWaterfall
                 :articles="articles"
                 :loading="loading"
                 :has-more="hasMore"
+                :total-count="totalCount"
                 @load-more="loadMoreArticles"
                 @article-click="handleArticleClick"
             />
           </div>
 
-          <!-- Sidebar -->
-          <div class="lg:col-span-1">
-            <div class="sticky top-24 space-y-8">
-              <PopularTags
-                  :tags="popularTags"
-                  @tag-click="handleTagSelect"
-              />
+          <!-- Desktop Sidebar -->
+          <div class="hidden lg:block relative w-[300px]">
+            <div class="sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-6">
+                <PopularTags
+                    :tags="popularTags"
+                    @tag-click="handleTagSelect"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -55,10 +49,7 @@
     </main>
 
     <!-- Footer -->
-    <ArticleFooter />
-
-    <!-- Floating Ad Banner -->
-    <AdBanner />
+    <ArticleFooter/>
 
     <!-- Article Detail Modal -->
     <ArticleDetailModal
@@ -70,9 +61,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { articleApi } from '../services/api';
-import ArticleHeader from '../components/client/ArticleHeader.vue';
+import {ref, onMounted, onUnmounted} from 'vue';
+import {articleApi} from '../services/api';
 import TagCloud from '../components/client/TagCloud.vue';
 import HotArticlesCarousel from '../components/client/HotArticlesCarousel.vue';
 import ArticleWaterfall from '../components/client/ArticleWaterfall.vue';
@@ -89,6 +79,7 @@ const popularTags = ref([]);
 const loading = ref(false);
 const hasMore = ref(true);
 const currentPage = ref(1);
+const totalCount = ref(0);
 const selectedTag = ref('全部');
 const selectedCategory = ref('全部');
 const searchQuery = ref('');
@@ -135,9 +126,12 @@ const loadArticles = async (page = 1, reset = false) => {
         articles.value = [...articles.value, ...newArticles];
       }
 
-      const totalPages = response.data?.total_pages || Math.ceil((response.total || 0) / PAGE_SIZE);
+      const total = response.total || 0;
+      const pageSize = response.data?.page_size || PAGE_SIZE;
+      const totalPages = response.data?.total_pages || Math.ceil((response.total || 0) / pageSize);
       hasMore.value = page < totalPages;
       currentPage.value = page;
+      totalCount.value = total;
     }
   } catch (error) {
     console.error('Error loading articles:', error);
@@ -156,24 +150,24 @@ const loadInitialData = async () => {
 
 const loadCategories = async () => {
   categories.value = [
-    { name: '全部', count: 1234 },
-    { name: '科技', count: 456 },
-    { name: '生活', count: 789 },
-    { name: '娱乐', count: 321 },
-    { name: '体育', count: 654 },
-    { name: '财经', count: 234 }
+    {name: '全部', count: 1234},
+    {name: '科技', count: 456},
+    {name: '生活', count: 789},
+    {name: '娱乐', count: 321},
+    {name: '体育', count: 654},
+    {name: '财经', count: 234}
   ];
 };
 
 const loadTags = async () => {
   tags.value = [
-    { name: '全部', count: 1234 },
-    { name: 'Vue.js', count: 89 },
-    { name: 'React', count: 76 },
-    { name: 'JavaScript', count: 123 },
-    { name: 'Python', count: 98 },
-    { name: 'AI', count: 67 },
-    { name: '机器学习', count: 54 }
+    {name: '全部', count: 1234},
+    {name: 'Vue.js', count: 89},
+    {name: 'React', count: 76},
+    {name: 'JavaScript', count: 123},
+    {name: 'Python', count: 98},
+    {name: 'AI', count: 67},
+    {name: '机器学习', count: 54}
   ];
 
   popularTags.value = [
@@ -221,7 +215,7 @@ const closeDetailModal = () => {
 
 // Infinite scroll
 const handleScroll = () => {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight - 1000 && hasMore.value && !loading.value) {
     loadMoreArticles();
   }

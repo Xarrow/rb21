@@ -3,8 +3,13 @@ import Home from '../views/Home.vue';
 import Posts from '../views/Posts.vue';
 import Admin from '../views/Admin.vue';
 import Articles from '../views/Articles.vue';
-
+import Demo  from '../views/Demo.vue';
 const routes = [
+  {
+    path: '/demo',
+    name: 'Demo',
+    component: Demo,
+  },
   {
     path: '/',
     name: 'Home',
