@@ -55,25 +55,25 @@
           }"
         >
           <div
-            class="article-card relative rounded-2xl overflow-hidden cursor-pointer group h-full"
-            @click="handleArticleClick(item.article.article_id)"
-            :style="getCardBackgroundStyle(item.article)"
+              class="article-card relative rounded-2xl overflow-hidden cursor-pointer group h-full"
+              @click="handleArticleClick(item.article.article_id)"
+              :style="getCardBackgroundStyle(item.article)"
           >
             <div
-              v-if="item.article.article_head_image"
-              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"
+                v-if="item.article.article_head_image"
+                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"
             ></div>
             <div
-              v-else
-              class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"
+                v-else
+                class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"
             ></div>
 
             <!-- Floating Actions -->
             <div class="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
               <button
-                @click.stop="toggleBookmark(item.article)"
-                class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-red-400"
-                title="收藏"
+                  @click.stop="toggleBookmark(item.article)"
+                  class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-red-400"
+                  title="收藏"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -81,9 +81,9 @@
                 </svg>
               </button>
               <button
-                @click.stop="shareArticle(item.article)"
-                class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-blue-400"
-                title="分享"
+                  @click.stop="shareArticle(item.article)"
+                  class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-blue-400"
+                  title="分享"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,9 +116,9 @@
               <div class="space-y-4">
                 <div v-if="item.article.tags && item.article.tags.length > 0" class="flex flex-wrap gap-2">
                   <span
-                    v-for="tag in item.article.tags.slice(0, 3)"
-                    :key="tag"
-                    class="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/30"
+                      v-for="tag in item.article.tags.slice(0, 3)"
+                      :key="tag"
+                      class="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/30"
                   >
                     #{{ tag }}
                   </span>
@@ -127,7 +127,8 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-4">
                     <div class="flex items-center space-x-3">
-                      <div class="w-10 h-10 bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/20 shadow-lg">
+                      <div
+                          class="w-10 h-10 bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/20 shadow-lg">
                         <span class="text-white font-bold text-sm">
                           {{ getAuthorInitial(item.article.article_author) }}
                         </span>
@@ -222,9 +223,9 @@
 
     <!-- Article Detail Modal -->
     <ArticleDetailCard
-      v-if="showDetailModal"
-      :article-id="selectedArticleId"
-      @close="closeDetailModal"
+        v-if="showDetailModal"
+        :article-id="selectedArticleId"
+        @close="closeDetailModal"
     />
   </div>
 </template>
@@ -232,13 +233,13 @@
 <script setup>
 import MediaIcon from '../MediaIcon.vue';
 import ArticleDetailCard from './ArticleDetailCard.vue';
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import {ref, computed, onMounted, onUnmounted, watch, nextTick} from 'vue';
 
 const props = defineProps({
-  articles: { type: Array, default: () => [] },
-  loading: { type: Boolean, default: false },
-  hasMore: { type: Boolean, default: true },
-  totalCount: { type: Number, default: 0 }
+  articles: {type: Array, default: () => []},
+  loading: {type: Boolean, default: false},
+  hasMore: {type: Boolean, default: true},
+  totalCount: {type: Number, default: 0}
 });
 
 const emit = defineEmits(['load-more', 'article-click', 'refresh']);
@@ -288,7 +289,7 @@ const waterfallItems = computed(() => {
     if (article.article_head_image) {
       const summaryWidth = article.head_image_summary_width || 400;
       const summaryHeight = article.head_image_summary_height ||
-        (article.head_image_summary_width ? Math.round(article.head_image_summary_width * 0.8) : 320);
+          (article.head_image_summary_width ? Math.round(article.head_image_summary_width * 0.8) : 320);
 
       const calculatedHeight = Math.round((summaryHeight / summaryWidth) * width);
       height = Math.max(320, Math.min(calculatedHeight, width * 1.5));
@@ -423,7 +424,7 @@ watch(columnCount, () => updateLayout());
 watch(() => props.articles, async () => {
   await nextTick();
   updateLayout();
-}, { deep: true });
+}, {deep: true});
 
 // Utils
 const formatDate = (dateString) => {
@@ -442,8 +443,8 @@ const formatDate = (dateString) => {
 };
 
 const getAuthorInitial = (author) => author?.charAt(0)?.toUpperCase() || 'A';
-const getRandomViews  = () => Math.floor(Math.random() * 1000) + 100;
-const getRandomLikes  = () => Math.floor(Math.random() * 200) + 20;
+const getRandomViews = () => Math.floor(Math.random() * 1000) + 100;
+const getRandomLikes = () => Math.floor(Math.random() * 200) + 20;
 
 const getReadingTime = (summary) => {
   if (!summary) return 3;
@@ -490,7 +491,10 @@ const shareArticle = (article) => {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
 }
-.article-card:hover { transform: translateY(-8px) scale(1.02); }
+
+.article-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
 
 .action-btn {
   @apply p-2 transition-all duration-200 transform hover:scale-110;
@@ -498,35 +502,82 @@ const shareArticle = (article) => {
 }
 
 /* line clamp utils */
-.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 /* Load more btn */
-.load-more-btn { @apply relative overflow-hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.load-more-btn {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
 .load-more-btn::before {
   content: '';
   @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full;
   transition: transform 0.6s;
 }
-.load-more-btn:hover::before { @apply translate-x-full; }
 
-.waterfall-item * { will-change: auto; }
-.waterfall-item:hover * { will-change: transform; }
+.load-more-btn:hover::before {
+  @apply translate-x-full;
+}
+
+.waterfall-item * {
+  will-change: auto;
+}
+
+.waterfall-item:hover * {
+  will-change: transform;
+}
 
 @media (max-width: 640px) {
-  .waterfall-item { @apply mx-1; }
+  .waterfall-item {
+    @apply mx-1;
+  }
 }
 
 .article-card::before {
   content: '';
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   transform: translateX(-100%);
-  transition: transform 0.6s; z-index: 1;
+  transition: transform 0.6s;
+  z-index: 1;
 }
-.article-card:hover::before { transform: translateX(100%); }
 
-.waterfall-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.article-card:hover::before {
+  transform: translateX(100%);
+}
 
-.grid { display: grid; gap: 1rem; }
+.waterfall-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.waterfall-item {
+  grid-column-end: span 1;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 100ms forwards;
+}
 </style>
