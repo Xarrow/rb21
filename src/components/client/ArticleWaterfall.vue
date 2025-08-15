@@ -33,17 +33,14 @@
     <!-- Waterfall -->
     <div
       v-if="articles.length > 0"
-      class="waterfall-container"
-      :style="{ height: `${containerHeight}px` }"
-      @scroll="handleScroll"
-      ref="scrollContainer"
+      class="relative"
+      ref="containerRef"
     >
       <div
-        class="waterfall-content"
+        class="relative"
         :style="{
-          height: `${totalHeight}px`,
           width: '100%',
-          overflow: 'hidden'
+          minHeight: `${totalHeight}px`
         }"
       >
         <article
@@ -248,7 +245,6 @@ const emit = defineEmits(['load-more', 'article-click', 'refresh']);
 
 // Refs
 const containerRef = ref(null);
-const scrollContainer = ref(null);
 
 // Modal
 const showDetailModal = ref(false);
@@ -256,7 +252,6 @@ const selectedArticleId = ref('');
 
 // Waterfall state
 const containerHeight = ref(1024);
-const scrollTop = ref(0);
 const columnCount = ref(3);
 const columnWidth = ref(400);
 const gap = ref(20);
@@ -333,20 +328,13 @@ const totalHeight = computed(() => {
 });
 
 const visibleItems = computed(() => {
-  const windowHeight = containerHeight.value;
-  return waterfallItems.value.filter(item => {
-    return item.top < scrollTop.value + windowHeight + buffer.value &&
-           item.top + item.height > scrollTop.value - buffer.value;
-  });
+  // Since we removed the scroll container, show all items
+  return waterfallItems.value;
 });
 
 // Helpers
 const getInnerAvailableWidth = () => {
-  // 优先使用真正滚动容器的宽度（已剔除父级 padding 和滚动条）
-  if (scrollContainer.value) {
-    return scrollContainer.value.clientWidth || 0;
-  }
-  // 回退：外层容器 - padding
+  // Use containerRef width minus padding
   if (containerRef.value) {
     const el = containerRef.value;
     const style = getComputedStyle(el);
@@ -402,13 +390,6 @@ const getCardBackgroundStyle = (article) => {
 };
 
 // Events
-const handleScroll = (event) => {
-  scrollTop.value = event.target.scrollTop;
-  const { scrollTop: st, scrollHeight, clientHeight } = event.target;
-  if (scrollHeight - st - clientHeight < 100 && props.hasMore && !props.loading) {
-    emit('load-more');
-  }
-};
 
 const handleResize = () => {
   updateLayout();
@@ -421,8 +402,8 @@ onMounted(async () => {
   updateLayout();
   window.addEventListener('resize', handleResize);
 
-  // 监听容器尺寸变化（包括滚动条出现/消失引起的宽度变化）
-  const target = scrollContainer.value || containerRef.value;
+  // Listen to container size changes
+  const target = containerRef.value;
   if ('ResizeObserver' in window && target) {
     ro = new ResizeObserver(() => updateLayout());
     ro.observe(target);
@@ -496,34 +477,6 @@ const shareArticle = (article) => {
 </script>
 
 <style scoped>
-/* Waterfall container */
-.waterfall-container {
-  @apply relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.waterfall-container::-webkit-scrollbar { width: 4px; }
-.waterfall-container::-webkit-scrollbar-track { background: transparent; }
-.waterfall-container::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.3);
-  border-radius: 2px;
-}
-.waterfall-container::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(156, 163, 175, 0.5);
-}
-
-.waterfall-content {
-  @apply relative;
-  width: 100%;
-  min-height: 100%;
-  overflow: hidden; /* 防止误差时滚动条闪烁 */
-  box-sizing: border-box;
-}
 
 .waterfall-item {
   @apply transition-all duration-300 ease-out;
