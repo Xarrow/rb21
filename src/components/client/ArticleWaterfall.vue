@@ -12,18 +12,14 @@
       <!-- Column Count Control -->
       <div class="hidden lg:flex items-center space-x-4">
         <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">布局:</span>
-        <div class="flex items-center space-x-1 bg-white dark:bg-gray-800 rounded-xl p-1.5 shadow-lg border border-gray-200 dark:border-gray-700">
-          <button
-            v-for="count in [2, 3, 4,]"
-            :key="count"
-            @click="setColumnCount(count)"
-            :class="[
-              'px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
-              columnCount === count
-                ? 'bg-primary-500 text-white shadow-md transform scale-105'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200'
-            ]"
-          >
+        <div
+            class="flex items-center space-x-1 bg-white dark:bg-gray-800 rounded-xl p-1.5 shadow-lg border border-gray-200 dark:border-gray-700">
+          <button v-for="count in [2, 3, 4,]" :key="count" @click="setColumnCount(count)" :class="[
+            'px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
+            columnCount === count
+              ? 'bg-primary-500 text-white shadow-md transform scale-105'
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200'
+          ]">
             {{ count }}列
           </button>
         </div>
@@ -31,123 +27,116 @@
     </div>
 
     <!-- Waterfall -->
-    <div
-      v-if="articles.length > 0"
-      class="relative"
-      ref="containerRef"
-    >
-      <div
-        class="relative"
-        :style="{
-          width: '100%',
-          minHeight: `${totalHeight}px`
-        }"
-      >
-        <article
-          v-for="item in visibleItems"
-          :key="item.article.article_id"
-          class="waterfall-item absolute"
-          :style="{
-            left: `${item.left}px`,
-            top: `${item.top}px`,
-            width: `${item.width}px`,
-            height: `${item.height}px`
-          }"
-        >
-          <div
-              class="article-card relative rounded-2xl overflow-hidden cursor-pointer group h-full"
-              @click="handleArticleClick(item.article.article_id)"
-              :style="getCardBackgroundStyle(item.article)"
-          >
-            <div
-                v-if="item.article.article_head_image"
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"
-            ></div>
-            <div
-                v-else
-                class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"
-            ></div>
+    <div v-if="articles.length > 0" class="relative" ref="containerRef">
+      <div class="relative" :style="{
+        width: '100%',
+        minHeight: `${totalHeight}px`
+      }">
+        <article v-for="item in visibleItems" :key="item.article.article_id" class="waterfall-item absolute" :style="{
+          left: `${item.left}px`,
+          top: `${item.top}px`,
+          width: `${item.width}px`,
+          height: `${item.height}px`
+        }">
 
-            <!-- Floating Actions -->
-            <div class="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-              <button
-                  @click.stop="toggleBookmark(item.article)"
-                  class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-red-400"
-                  title="收藏"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-              </button>
-              <button
-                  @click.stop="shareArticle(item.article)"
-                  class="action-btn bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 hover:text-blue-400"
-                  title="分享"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
-                </svg>
-              </button>
-            </div>
+          <div class="article-card relative rounded-2xl overflow-hidden cursor-pointer group h-full"
+               @click="handleArticleClick(item.article.article_id)" :style="getCardBackgroundStyle(item.article)">
 
-            <!-- Content -->
-            <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
-              <div class="space-y-4">
-                <div v-if="item.article.article_source" class="flex items-start justify-between">
-                  <div class="inline-flex items-center px-4 py-2 bg-white/25 backdrop-blur-lg rounded-xl text-sm font-semibold shadow-lg border border-white/20">
-                    <MediaIcon :source="item.article.article_source" icon-size="sm" class="mr-2 text-white"/>
-                    <span class="text-white">{{ item.article.article_source }}</span>
-                  </div>
+            <!-- 带概要图片 -->
+            <div v-if="item.article.article_head_image"
+                 class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20">
+              <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 space-y-4">
+
+                <!-- Meta Info Row -->
+                <div class="flex items-center gap-2 text-sm text-white/90 drop-shadow-md">
+                  <MediaIcon v-if="item.article.article_source" :source="item.article.article_source" icon-size="sm"
+                             class="shrink-0"/>
+                  <span v-if="item.article.article_source" class="truncate">
+        {{ item.article.article_source }}
+      </span>
+                  <span v-if="item.article.article_author" class="truncate">
+        · {{ item.article.article_author }}
+      </span>
+                  <span v-if="item.article.update_time || item.article.create_time">
+        · {{ formatDate(item.article.update_time || item.article.create_time) }}
+      </span>
                 </div>
 
-                <h3 class="text-2xl font-bold leading-tight line-clamp-3 group-hover:text-primary-200 transition-colors duration-300"
-                    :class="item.article.article_head_image ? 'text-white drop-shadow-lg' : 'text-gray-900 dark:text-gray-100'">
+                <!-- Title -->
+                <h3 class="font-bold leading-snug line-clamp-2 text-white drop-shadow-lg text-lg sm:text-xl">
                   {{ item.article.article_title }}
                 </h3>
 
-                <p class="text-base leading-relaxed line-clamp-4 font-medium"
-                   :class="item.article.article_head_image ? 'text-white/90 drop-shadow-sm' : 'text-gray-700 dark:text-gray-300'">
-                  {{ item.article.article_summary || '这篇文章暂时没有摘要，点击查看完整内容...' }}
+                <!-- Summary -->
+                <p v-if="item.article.article_summary" class="leading-relaxed line-clamp-3 font-normal text-white/90 drop-shadow-sm">
+                  {{ item.article.article_summary }}
                 </p>
-              </div>
 
-              <div class="space-y-4">
-                <div v-if="item.article.tags && item.article.tags.length > 0" class="flex flex-wrap gap-2">
-                  <span
-                      v-for="tag in item.article.tags.slice(0, 3)"
-                      :key="tag"
-                      class="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/30"
-                  >
-                    #{{ tag }}
-                  </span>
+                <!-- Tags -->
+                <div v-if="item.article.tags && item.article.tags.length > 0" class="flex flex-wrap gap-1.5 pt-1">
+      <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
+            class="inline-flex items-center px-2 py-0.5 rounded-full font-medium
+                   bg-black/30 backdrop-blur-sm text-white/90 shadow-sm">
+        #{{ tag }}
+      </span>
                 </div>
 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center space-x-4">
-                    <div class="flex items-center space-x-3">
-                      <div
-                          class="w-10 h-10 bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/20 shadow-lg">
-                        <span class="text-white font-bold text-sm">
-                          {{ getAuthorInitial(item.article.article_author) }}
-                        </span>
-                      </div>
-                      <div class="flex flex-col">
-                        <span class="text-sm font-semibold" :class="item.article.article_head_image ? 'text-white' : 'text-gray-900 dark:text-gray-100'">
-                          {{ item.article.article_author || '匿名作者' }}
-                        </span>
-                        <span class="text-xs opacity-80" :class="item.article.article_head_image ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'">
-                          {{ formatDate(item.article.update_time || item.article.create_time) }}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <div class="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <!-- 不带概要图片 -->
+            <div v-else
+                 class="w-full h-full rounded-2xl p-6 flex flex-col justify-between
+            bg-white dark:bg-gray-900 shadow-lg dark:shadow-xl border border-gray-200 dark:border-gray-700">
+              <div class="absolute inset-0 p-6 flex flex-col justify-start z-10 space-y-4">
+
+                <!-- Meta Info Row -->
+                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                  <MediaIcon
+                      v-if="item.article.article_source"
+                      :source="item.article.article_source"
+                      icon-size="sm"
+                      class="shrink-0"
+                  />
+                  <span v-if="item.article.article_source" class="truncate">
+        {{ item.article.article_source }}
+      </span>
+                  <span v-if="item.article.article_author" class="truncate">
+        · {{ item.article.article_author }}
+      </span>
+                  <span v-if="item.article.update_time || item.article.create_time">
+        · {{ formatDate(item.article.update_time || item.article.create_time) }}
+      </span>
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-xl sm:text-2xl font-bold leading-snug text-gray-900 dark:text-white drop-shadow-sm line-clamp-2">
+                  {{ item.article.article_title }}
+                </h3>
+
+                <!-- Summary -->
+                <p v-if="item.article.article_summary"
+                   class="text-base leading-relaxed text-gray-700 dark:text-gray-300 line-clamp-4">
+                  {{ item.article.article_summary }}
+                </p>
+
+                <!-- Tags -->
+                <div v-if="item.article.tags && item.article.tags.length > 0"
+                     class="flex flex-wrap gap-1.5 pt-2 text-xs">
+      <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
+            class="inline-flex items-center px-2 py-0.5 rounded-full
+                   bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium shadow-sm">
+        #{{ tag }}
+      </span>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div
+                class="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            </div>
           </div>
         </article>
       </div>
@@ -206,27 +195,22 @@
     <!-- Empty -->
     <div v-if="!loading && articles.length === 0" class="text-center py-16">
       <div class="max-w-md mx-auto">
-        <svg class="w-24 h-24 mx-auto mb-6 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-24 h-24 mx-auto mb-6 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor"
+             viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
         </svg>
         <h3 class="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">暂无文章</h3>
         <p class="text-gray-400 dark:text-gray-500 mb-6">没有找到符合条件的文章，试试其他搜索条件吧</p>
-        <button
-            @click="$emit('refresh')"
-            class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors duration-200"
-        >
+        <button @click="$emit('refresh')"
+                class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors duration-200">
           刷新页面
         </button>
       </div>
     </div>
 
     <!-- Article Detail Modal -->
-    <ArticleDetailCard
-        v-if="showDetailModal"
-        :article-id="selectedArticleId"
-        @close="closeDetailModal"
-    />
+    <ArticleDetailCard v-if="showDetailModal" :article-id="selectedArticleId" @close="closeDetailModal"/>
   </div>
 </template>
 
@@ -255,8 +239,7 @@ const selectedArticleId = ref('');
 const containerHeight = ref(1024);
 const columnCount = ref(3);
 const columnWidth = ref(400);
-const gap = ref(20);
-const buffer = ref(200);
+const gap = ref(27);
 
 // Breakpoints
 const getResponsiveColumnCount = (width) => {
@@ -475,10 +458,28 @@ const shareArticle = (article) => {
     navigator.clipboard.writeText(window.location.href);
   }
 };
+
+const getFontSize = (item, type) => {
+  const baseWidth = 400; // 设计稿的参考宽度
+  const scale = item.width / baseWidth; // 宽度缩放比例
+
+  switch (type) {
+    case 'meta':
+      return `${Math.max(10, 12 * scale)}px`; // 来源/作者/时间
+    case 'title':
+      return `${Math.max(16, 20 * scale)}px`; // 标题
+    case 'summary':
+      return `${Math.max(12, 14 * scale)}px`; // 摘要
+    case 'tag':
+      return `${Math.max(10, 12 * scale)}px`; // 标签
+    default:
+      return '14px';
+  }
+};
+
 </script>
 
 <style scoped>
-
 .waterfall-item {
   @apply transition-all duration-300 ease-out;
   will-change: transform;
@@ -486,28 +487,7 @@ const shareArticle = (article) => {
   max-width: 100%;
 }
 
-.article-card {
-  @apply transform hover:-translate-y-2;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box;
-}
-
-.article-card:hover {
-  transform: translateY(-8px) scale(1.02);
-}
-
-.action-btn {
-  @apply p-2 transition-all duration-200 transform hover:scale-110;
-  backdrop-filter: blur(12px);
-}
-
 /* line clamp utils */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 
 .line-clamp-3 {
   display: -webkit-box;
@@ -524,20 +504,6 @@ const shareArticle = (article) => {
 }
 
 /* Load more btn */
-.load-more-btn {
-  @apply relative overflow-hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.load-more-btn::before {
-  content: '';
-  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full;
-  transition: transform 0.6s;
-}
-
-.load-more-btn:hover::before {
-  @apply translate-x-full;
-}
 
 .waterfall-item * {
   will-change: auto;
@@ -552,6 +518,18 @@ const shareArticle = (article) => {
     @apply mx-1;
   }
 }
+
+
+.article-card {
+  @apply transform hover:-translate-y-2;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.article-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
 
 .article-card::before {
   content: '';
@@ -570,14 +548,36 @@ const shareArticle = (article) => {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.grid {
-  display: grid;
-  gap: 1rem;
-}
-
 .waterfall-item {
   grid-column-end: span 1;
   opacity: 0;
   animation: fadeIn 1s ease-out 100ms forwards;
 }
+
+.article-card {
+  @apply relative rounded-2xl overflow-hidden cursor-pointer transform transition-all duration-300 ease-out
+  hover:-translate-y-2 hover:scale-105 shadow-lg dark:shadow-xl;
+  box-sizing: border-box;
+}
+
+.article-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  z-index: 1;
+}
+
+.article-card:hover::before {
+  transform: translateX(100%);
+}
+.waterfall-item {
+  @apply transition-all duration-300 ease-out;
+  will-change: transform;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.1s forwards;
+}
+
+
 </style>

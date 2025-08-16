@@ -26,20 +26,22 @@ const props = defineProps({
 const localIconMap = {
   // 请将你的 cnn.png 文件放置在 public/icons/ 目录下
   // 例如：public/icons/cnn.png
-  bloomberg: '/icons/Bloomberg.jpeg',
-  twitter: '/icons/Twitter.png',
-  theeconomist: '/icons/TheEconomist.jpg',
+  bloomberg: '/icons/bloomberg.ico',
+  twitter: '/icons/x.ico',
+  theeconomist: '/icons/the_economist.ico',
+  zhihu: '/icons/zhihu.ico',
+  知乎: '/icons/zhihu.ico',
+  pinterest: '/icons/pinterest.ico',
 };
 
 const normalizedSource = computed(() => props.source.toLowerCase());
 
 // 计算本地图标路径
 const localIconPath = computed(() => {
-  if (normalizedSource.value === undefined || normalizedSource.value === ''){
+  if (normalizedSource.value === undefined || normalizedSource.value === '') {
     return null;
   }
-  let localPath = localIconMap[normalizedSource.value.toLocaleLowerCase()] || null;
-  return localPath
+  return localIconMap[normalizedSource.value.toLocaleLowerCase()] || null
 });
 
 // 计算文本回退
