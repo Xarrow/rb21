@@ -2,7 +2,7 @@
   <div class="space-y-8 px-4 sm:px-6 lg:px-8" ref="containerRef">
     <!-- Section Header with Controls -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
         最新文章
         <span v-if="totalCount > 0" class="text-base font-normal text-gray-500 dark:text-gray-400 ml-3">
           ({{ totalCount }} 篇)
@@ -49,7 +49,7 @@
 
                 <!-- Meta Info Row -->
                 <div class="flex items-center gap-2 text-sm text-white/90 drop-shadow-md">
-                  <MediaIcon v-if="item.article.article_source" :source="item.article.article_source" icon-size="sm"
+                  <MediaIcon v-if="item.article.article_source" :source="item.article.article_source" icon-size="xl"
                              class="shrink-0"/>
                   <span v-if="item.article.article_source" class="truncate">
         {{ item.article.article_source }}
@@ -202,7 +202,7 @@
         </svg>
         <h3 class="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">暂无文章</h3>
         <p class="text-gray-400 dark:text-gray-500 mb-6">没有找到符合条件的文章，试试其他搜索条件吧</p>
-        <button @click="$emit('refresh')"
+        <button @click="handleRefresh"
                 class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors duration-200">
           刷新页面
         </button>
@@ -227,6 +227,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['load-more', 'article-click', 'refresh']);
+const loading = ref(false);
 
 // Refs
 const containerRef = ref(null);
@@ -436,6 +437,12 @@ const getReadingTime = (summary) => {
   return Math.max(1, Math.min(readingTime, 10));
 };
 
+const handleRefresh = () => {
+  emit('refresh');
+  loading.value = true;
+  setTimeout(() => loading.value = false, 1000);
+};
+
 const handleArticleClick = (articleId) => {
   selectedArticleId.value = articleId;
   showDetailModal.value = true;
@@ -572,6 +579,7 @@ const getFontSize = (item, type) => {
 .article-card:hover::before {
   transform: translateX(100%);
 }
+
 .waterfall-item {
   @apply transition-all duration-300 ease-out;
   will-change: transform;

@@ -26,12 +26,12 @@ const props = defineProps({
 const localIconMap = {
   // 请将你的 cnn.png 文件放置在 public/icons/ 目录下
   // 例如：public/icons/cnn.png
-  bloomberg: '/icons/bloomberg.ico',
-  twitter: '/icons/x.ico',
-  theeconomist: '/icons/the_economist.ico',
-  zhihu: '/icons/zhihu.ico',
-  知乎: '/icons/zhihu.ico',
-  pinterest: '/icons/pinterest.ico',
+  bloomberg: '/media_icons/bloomberg.ico',
+  twitter: '/media_icons/x.ico',
+  theeconomist: '/media_icons/the_economist.ico',
+  zhihu: '/media_icons/zhihu.ico',
+  知乎: '/media_icons/zhihu.ico',
+  pinterest: '/media_icons/pinterest.ico',
 };
 
 const normalizedSource = computed(() => props.source.toLowerCase());

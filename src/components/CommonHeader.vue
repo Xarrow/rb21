@@ -1,22 +1,30 @@
 <template>
-  <header class="z-50 bg-white/95 dark:bg-gray-900/95"
+  <header class="header-wrapper z-50 bg-white/95 dark:bg-gray-900/95"
           :class="{
             'fixed top-0 left-0 right-0 shadow-lg': fullMode && scrolled,
             'fixed top-0 left-0 right-0': fullMode && !scrolled,
             'static': !fullMode
           }">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+
     <div class="container mx-auto px-4">
+
       <div class="flex items-center justify-between h-16">
-        <!-- Logo -->
-        <router-link to="/" class="flex items-center space-x-3 group">
-          <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-200">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-              <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
+
+        <!-- Logo + Title -->
+        <router-link to="/articles" class="flex items-center space-x-3 group">
+
+          <!-- Logo -->
+          <div class="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-tr  group-hover:scale-105 transition-transform duration-200">
+            <img src="/logo-ghibli.png" alt="Logo" class="w-14 h-14 object-contain"/>
           </div>
           <div>
-            <h1 class="text-xl font-bold gradient-text">ArticleHub</h1>
+            <h1 class="text-xl font-bold gradient-text">叽里咕噜</h1>
             <p v-if="fullMode" class="text-xs text-gray-500 dark:text-gray-400">现代化阅读体验</p>
           </div>
         </router-link>
@@ -34,7 +42,8 @@
             <span v-if="category.count" class="ml-1 text-xs opacity-60">({{ category.count }})</span>
             <div v-if="isActiveCategory(category.name)"
                  class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"></div>
-            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></div>
+            <div
+                class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></div>
           </button>
         </nav>
 
@@ -87,7 +96,9 @@
               title="切换主题"
           >
             <svg v-if="isDark" class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    clip-rule="evenodd"/>
             </svg>
             <svg v-else class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
               <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
@@ -169,8 +180,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { useRoute } from 'vue-router';
+import {ref, onMounted, onUnmounted} from 'vue';
+import {useRoute} from 'vue-router';
 
 const route = useRoute();
 
@@ -269,4 +280,33 @@ onUnmounted(() => {
 .gradient-bg {
   @apply bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600;
 }
+/* 背景几何网格 + 红橙飘带 */
+.header-wrapper {
+  position: relative;
+  background: white;
+}
+.dark .header-wrapper {
+  background: #111827; /* gray-900 */
+}
+
+
+
+/* 网格背景 */
+.header-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+      linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  z-index: -1;
+}
+
+.dark .header-wrapper::after {
+  background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+}
+
 </style>
