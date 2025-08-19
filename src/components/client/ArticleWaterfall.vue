@@ -2,7 +2,7 @@
   <div class="space-y-8 px-4 sm:px-6 lg:px-8" ref="containerRef">
     <!-- Section Header with Controls -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">
         最新文章
         <span v-if="totalCount > 0" class="text-base font-normal text-gray-500 dark:text-gray-400 ml-3">
           ({{ totalCount }} 篇)
@@ -99,14 +99,14 @@
                       class="shrink-0"
                   />
                   <span v-if="item.article.article_source" class="truncate">
-        {{ item.article.article_source }}
-      </span>
+                    {{ item.article.article_source }}
+                  </span>
                   <span v-if="item.article.article_author" class="truncate">
-        · {{ item.article.article_author }}
-      </span>
+                    · {{ item.article.article_author }}
+                  </span>
                   <span v-if="item.article.update_time || item.article.create_time">
-        · {{ formatDate(item.article.update_time || item.article.create_time) }}
-      </span>
+                    · {{ formatDate(item.article.update_time || item.article.create_time) }}
+                  </span>
                 </div>
 
                 <!-- Title -->
@@ -123,11 +123,11 @@
                 <!-- Tags -->
                 <div v-if="item.article.tags && item.article.tags.length > 0"
                      class="flex flex-wrap gap-1.5 pt-2 text-xs">
-      <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
-            class="inline-flex items-center px-2 py-0.5 rounded-full
-                   bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium shadow-sm">
-        #{{ tag }}
-      </span>
+                  <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
+                        class="inline-flex items-center px-2 py-0.5 rounded-full
+                               bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium shadow-sm">
+                    #{{ tag }}
+                  </span>
                 </div>
 
               </div>

@@ -87,6 +87,16 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
               </svg>
             </button>
+            <button
+                v-if="isRefreshing"
+                class="absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+                disabled
+            >
+              <svg class="animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </button>
           </div>
 
           <!-- Theme Toggle -->
@@ -207,6 +217,7 @@ const scrolled = ref(false);
 const isDark = ref(false);
 const searchQuery = ref('');
 const showMobileMenu = ref(false);
+const isRefreshing = ref(false);
 let searchTimeout = null;
 
 // Methods
@@ -229,10 +240,15 @@ const handleMobileCategoryClick = (categoryName) => {
   handleCategoryClick(categoryName);
 };
 
-const handleSearch = () => {
+const handleSearch = async () => {
   if (searchQuery.value.trim()) {
-    emit('search', searchQuery.value.trim());
-    showMobileMenu.value = false;
+    isRefreshing.value = true;
+    try {
+      await emit('search', searchQuery.value.trim());
+      showMobileMenu.value = false;
+    } finally {
+      isRefreshing.value = false;
+    }
   }
 };
 
@@ -277,18 +293,14 @@ onUnmounted(() => {
   @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
 }
 
-.gradient-bg {
-  @apply bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600;
-}
-/* 背景几何网格 + 红橙飘带 */
 .header-wrapper {
   position: relative;
   background: white;
 }
+
 .dark .header-wrapper {
   background: #111827; /* gray-900 */
 }
-
 
 
 /* 网格背景 */
@@ -296,17 +308,15 @@ onUnmounted(() => {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-      linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+  linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
   z-index: -1;
 }
 
 .dark .header-wrapper::after {
-  background-image:
-      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+  linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
 
 </style>
