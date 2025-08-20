@@ -5,7 +5,6 @@
             'fixed top-0 left-0 right-0': fullMode && !scrolled,
             'static': !fullMode
           }">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -49,18 +48,18 @@
 
         <!-- Navigation - Simple Mode -->
         <nav v-else class="hidden md:flex items-center space-x-6">
-          <router-link
-              to="/"
-              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
-          >
-            Home
-          </router-link>
-          <router-link
-              to="/admin"
-              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
-          >
-            Admin
-          </router-link>
+<!--          <router-link-->
+<!--              to="/"-->
+<!--              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"-->
+<!--          >-->
+<!--            Home-->
+<!--          </router-link>-->
+<!--          <router-link-->
+<!--              to="/admin"-->
+<!--              class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"-->
+<!--          >-->
+<!--            Admin-->
+<!--          </router-link>-->
         </nav>
 
         <!-- Actions -->

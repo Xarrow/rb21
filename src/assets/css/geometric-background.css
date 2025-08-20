@@ -1,0 +1,199 @@
+/* Geometric Vector Background Styles */
+.geometric-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Primary geometric shapes */
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0px, transparent 50px),
+    radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.08) 0px, transparent 60px),
+    radial-gradient(circle at 40% 70%, rgba(245, 158, 11, 0.06) 0px, transparent 70px),
+    
+    /* Secondary geometric patterns */
+    linear-gradient(45deg, rgba(59, 130, 246, 0.03) 25%, transparent 25%, transparent 75%, rgba(59, 130, 246, 0.03) 75%),
+    linear-gradient(-45deg, rgba(16, 185, 129, 0.03) 25%, transparent 25%, transparent 75%, rgba(16, 185, 129, 0.03) 75%),
+    
+    /* Grid overlay */
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  
+  background-size: 
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    40px 40px,
+    40px 40px,
+    20px 20px,
+    20px 20px;
+  
+  background-position: 
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    20px 20px,
+    0 0,
+    0 0;
+  
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Dark mode geometric background */
+.dark .geometric-background::before {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15) 0px, transparent 50px),
+    radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.12) 0px, transparent 60px),
+    radial-gradient(circle at 40% 70%, rgba(245, 158, 11, 0.1) 0px, transparent 70px),
+    
+    linear-gradient(45deg, rgba(59, 130, 246, 0.06) 25%, transparent 25%, transparent 75%, rgba(59, 130, 246, 0.06) 75%),
+    linear-gradient(-45deg, rgba(16, 185, 129, 0.06) 25%, transparent 25%, transparent 75%, rgba(16, 185, 129, 0.06) 75%),
+    
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Animated geometric background variant */
+.geometric-background-animated::before {
+  animation: geometricFloat 20s ease-in-out infinite;
+}
+
+@keyframes geometricFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    background-position: 
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      20px 20px,
+      0 0,
+      0 0;
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+    background-position: 
+      10px 5px,
+      -5px 10px,
+      5px -5px,
+      5px 5px,
+      25px 25px,
+      2px 2px,
+      2px 2px;
+  }
+  50% {
+    transform: translateY(5px) rotate(-1deg);
+    background-position: 
+      -5px -10px,
+      10px -5px,
+      -10px 5px,
+      -5px -5px,
+      15px 15px,
+      -2px -2px,
+      -2px -2px;
+  }
+  75% {
+    transform: translateY(-5px) rotate(0.5deg);
+    background-position: 
+      5px 10px,
+      -10px 5px,
+      10px -10px,
+      5px 5px,
+      25px 25px,
+      1px 1px,
+      1px 1px;
+  }
+}
+
+/* Glass morphism effect for cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-card {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced gradient text */
+.enhanced-gradient-text {
+  background: linear-gradient(135deg, 
+    #3b82f6 0%, 
+    #2563eb 25%, 
+    #10b981 50%, 
+    #059669 75%, 
+    #f59e0b 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Floating elements animation */
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Enhanced button styles */
+.btn-enhanced {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, #3b82f6, #10b981, #f59e0b);
+  background-size: 200% 200%;
+  transition: all 0.3s ease;
+}
+
+.btn-enhanced:hover {
+  background-position: 100% 100%;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.btn-enhanced::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-enhanced:hover::before {
+  left: 100%;
+}
