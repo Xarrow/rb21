@@ -17,7 +17,7 @@
             <img src="/logo-mid-autumn-festival.png" alt="中秋快乐" title="中秋节快乐" class="w-20 h-20 object-contain"/>
           </div>
           <div>
-            <h1 class="text-xl font-bold gradient-text">叽里咕噜</h1>
+            <h1 class="text-xl font-bold gradient-text font-serif">叽里咕噜</h1>
             <p v-if="fullMode" class="text-xs text-gray-500 dark:text-gray-400">现代化阅读体验</p>
           </div>
         </router-link>

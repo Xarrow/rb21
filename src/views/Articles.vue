@@ -34,16 +34,16 @@
           </div>
 
           <!-- Desktop Sidebar -->
-          <div class="hidden lg:block relative w-[300px]">
-            <div class="sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
-              <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-6">
-                <PopularTags
-                    :tags="popularTags"
-                    @tag-click="handleTagSelect"
-                />
-              </div>
-            </div>
-          </div>
+<!--          <div class="hidden lg:block relative w-[300px]">-->
+<!--            <div class="sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">-->
+<!--              <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-6">-->
+<!--                <PopularTags-->
+<!--                    :tags="popularTags"-->
+<!--                    @tag-click="handleTagSelect"-->
+<!--                />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </div>
     </main>

@@ -59,6 +59,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Google Sans Text"', '"Noto Sans SC"', '"Noto Sans CJK SC"', 'Arial', 'Helvetica', 'sans-serif'],
+        serif: ['"Noto Serif SC"', '"Source Han Serif SC"', '"SimSun"', 'serif'],
         mono: ['"JetBrains Mono"', 'Menlo', 'Monaco', 'monospace'],
       },
       animation: {
