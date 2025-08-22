@@ -9,12 +9,12 @@
       <div class="flex items-center justify-between h-16">
 
         <!-- Logo + Title -->
-        <router-link to="/articles" class="flex items-center space-x-3 group">
+        <router-link to="/" class="flex items-center space-x-3 group">
 
           <!-- Logo -->
           <div
               class="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-tr  group-hover:scale-105 transition-transform duration-200">
-            <img src="/logo-mid-autumn-festival.png" alt="中秋快乐" title="中秋节快乐" class="w-20 h-20 object-contain"/>
+            <img src="/logo-ghibli.png" alt="咕噜咕噜" title="叽里咕噜" class="w-20 h-20 object-contain"/>
           </div>
           <div>
             <h1 class="text-xl font-bold gradient-text font-serif">叽里咕噜</h1>

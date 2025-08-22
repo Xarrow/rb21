@@ -11,7 +11,7 @@ const routes = [
     component: Demo,
   },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -21,7 +21,7 @@ const routes = [
     component: Posts,
   },
   {
-    path: '/articles',
+    path: '/',
     name: 'Articles',
     component: Articles,
   },
