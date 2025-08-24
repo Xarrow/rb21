@@ -17,8 +17,8 @@
             <img src="/logo-ghibli.png" alt="咕噜咕噜" title="叽里咕噜" class="w-20 h-20 object-contain"/>
           </div>
           <div>
-            <h1 class="text-xl font-bold gradient-text font-serif">叽里咕噜</h1>
-            <p v-if="fullMode" class="text-xs text-gray-500 dark:text-gray-400">现代化阅读体验</p>
+            <h1 class="text-2xl font-bold gradient-text font-serif">叽里咕噜</h1>
+            <p class="text-base text-gray-500 dark:text-gray-400 font-serif">你的精神摸鱼乐园</p>
           </div>
         </router-link>
 
