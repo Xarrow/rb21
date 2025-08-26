@@ -238,7 +238,7 @@ const selectedArticleId = ref('');
 
 // Waterfall state
 const containerHeight = ref(1024);
-const columnCount = ref(3);
+const columnCount = ref(4);
 const columnWidth = ref(400);
 const gap = ref(27);
 
