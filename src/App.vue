@@ -1,8 +1,7 @@
 <template>
   <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <CommonHeader :fullMode="false" />
-<!--    <CommonHeader />-->
-    <router-view />
+    <CommonHeader :fullMode="true"/>
+    <router-view/>
   </div>
 </template>
 
