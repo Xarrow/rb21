@@ -33,12 +33,12 @@
       <!-- Content -->
       <div class="flex-1 overflow-y-auto p-6">
         <!-- Title for articles -->
-        <h1 v-if="post.show_style === 'article'" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        <h1 v-if="post.article_category === 'article'" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           {{ post.article_title }}
         </h1>
 
         <!-- Summary for articles -->
-        <p v-if="post.show_style === 'article' && post.article_summary" class="text-lg text-gray-600 dark:text-gray-400 mb-6 italic">
+        <p v-if="post.article_category === 'article' && post.article_summary" class="text-lg text-gray-600 dark:text-gray-400 mb-6 italic">
           {{ post.article_summary }}
         </p>
 
@@ -48,13 +48,13 @@
               :src="post.article_head_image"
               :alt="post.article_title"
               class="w-full rounded-lg object-cover"
-              :class="post.show_style === 'article' ? 'max-h-96' : 'max-h-64'"
+              :class="post.article_category === 'article' ? 'max-h-96' : 'max-h-64'"
           />
         </div>
 
         <!-- Content -->
         <div class="prose prose-gray dark:prose-invert max-w-none">
-          <div v-if="post.show_style === 'article'" class="markdown-preview" v-html="parsedContent"></div>
+          <div v-if="post.article_category === 'article'" class="markdown-preview" v-html="parsedContent"></div>
           <div v-else class="text-gray-900 dark:text-gray-100 leading-relaxed text-lg">
             {{ post.article_content }}
           </div>
@@ -118,7 +118,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const parsedContent = computed(() => {
-  if (props.post.show_style === 'article') {
+  if (props.post.article_category === 'article') {
     return parseMarkdown(props.post.article_content);
   }
   return props.post.article_content;

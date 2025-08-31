@@ -196,12 +196,12 @@
 
           <!-- Display Style -->
           <div class="space-y-1">
-            <label for="show_style" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Display Style
+            <label for="article_category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              分类
             </label>
             <select
-                id="show_style"
-                v-model="form.show_style"
+                id="article_category"
+                v-model="form.article_category"
                 class="input-field"
                 style="padding: 8px 12px; font-size: 14px;"
             >
@@ -342,7 +342,7 @@ const form = reactive({
   article_head_image_width: 0,
   article_head_image_height: 0,
   article_tags: [],
-  show_style: 'article',
+  article_category: 'article',
   status: 1
 });
 
@@ -358,8 +358,10 @@ const currentTags = ref([]);
 const loadingTags = ref(false);
 
 const showStyleOptions = [
-  {value: 'article', label: '文章'},
-  {value: 'post', label: '帖子'}
+  {value: 'chaosCategory', label: '薛定谔的分类'},
+  {value: 'highWords', label: '当代废话文学'},
+  {value: 'highResource', label: '互联网生存物资'},
+  {value: 'highImages', label: '精神污染浓度99%'}
 ];
 
 const statusOptions = [
@@ -580,7 +582,7 @@ const handleSubmit = async () => {
       article_head_image_width: form.article_head_image_width,
       article_head_image_height: form.article_head_image_height,
       article_tags: form.article_tags,
-      show_style: form.show_style,
+      article_category: form.article_category,
       status: form.status
     });
   } finally {
@@ -597,7 +599,7 @@ const resetForm = () => {
   form.article_summary = '';
   form.article_head_image = '';
   form.article_tags = [];
-  form.show_style = 'article';
+  form.article_category = 'article';
   form.status = 1;
 
   errors.article_title = '';

@@ -1,5 +1,5 @@
 <template>
-  <header class="header-wrapper z-50 bg-white/95 dark:bg-gray-900/95 fixed top-4 left-0 right-0" :class="{
+  <header class="header-wrapper z-50 bg-white/95 dark:bg-gray-900/95 fixed top-0 left-0 right-0" :class="{
     'shadow-lg': scrolled
   }">
 
@@ -10,12 +10,11 @@
         <router-link to="/" class="flex items-center space-x-3 group">
 
           <!-- Logo -->
-          <div
-              class="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-tr  group-hover:scale-105 transition-transform duration-200">
+          <div class="w-20 h-20 flex items-center justify-center rounded-xl bg-gradient-to-tr  group-hover:scale-105 transition-transform duration-200">
             <img src="/logo-ghibli.png" alt="咕噜咕噜" title="叽里咕噜" class="w-20 h-20 object-contain"/>
           </div>
           <div>
-            <h1 class="text-2xl font-bold gradient-text font-serif">叽里咕噜</h1>
+            <h1 class="text-xl font-bold gradient-text font-serif">叽里咕噜</h1>
             <p class="text-base text-gray-500 dark:text-gray-400 font-serif">你的精神摸鱼乐园</p>
           </div>
         </router-link>

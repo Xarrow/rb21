@@ -134,11 +134,11 @@
                 v-for="post in posts"
                 :key="post.article_id"
                 class="masonry-item mb-6 break-inside-avoid"
-                :class="getCardClass(post.show_style)"
+                :class="getCardClass(post.article_category)"
             >
               <!-- Article Style Card -->
               <div
-                  v-if="post.show_style === 'article'"
+                  v-if="post.article_category === 'article'"
                   class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group"
                   @click="viewPost(post)"
               >
