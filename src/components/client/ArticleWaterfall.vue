@@ -2,16 +2,16 @@
   <div class="space-y-8 px-4 sm:px-6 lg:px-8" ref="containerRef">
     <!-- Section Header with Controls -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">
-        最新文章
+      <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 font-serif">
+        “错过一条好鱼， 比错过下班还难受”
         <span v-if="totalCount > 0" class="text-base font-normal text-gray-500 dark:text-gray-400 ml-3">
-          ({{ totalCount }} 篇)
+          ({{ totalCount }} 条)
         </span>
       </h2>
 
       <!-- Column Count Control -->
       <div class="hidden lg:flex items-center space-x-4">
-        <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">布局:</span>
+        <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">摸鱼姿势:</span>
         <div
             class="flex items-center space-x-1 bg-white dark:bg-gray-800 rounded-xl p-1.5 shadow-lg border border-gray-200 dark:border-gray-700">
           <button v-for="count in [2, 3, 4,]" :key="count" @click="setColumnCount(count)" :class="[
@@ -43,7 +43,7 @@
                @click="handleArticleClick(item.article.article_id)" :style="getCardBackgroundStyle(item.article)">
 
             <!-- 带概要图片 -->
-            <div v-if="item.article.article_head_image"
+            <div v-if="item.article.article_head_image && item.article.show_style !== 'post'"
                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20">
               <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 space-y-4">
 
@@ -84,7 +84,47 @@
               </div>
             </div>
 
-            <!-- 不带概要图片 -->
+            <!-- 语录卡片样式 -->
+            <div v-else-if="!item.article.article_head_image || item.article.show_style === 'post'"
+                 class="w-full h-full rounded-2xl p-6 flex flex-col justify-center relative overflow-hidden"
+                 :style="getQuoteCardStyle(item.article)">
+              <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 dark:from-white/10 dark:to-white/0 backdrop-blur-sm"></div>
+              <div class="relative z-10 text-center px-2">
+                <!-- 引号图标 -->
+                <svg class="w-8 h-8 text-gray-700/70 dark:text-white/60 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                </svg>
+                
+                <!-- Title -->
+                <h3 class="text-xl sm:text-2xl font-bold leading-tight drop-shadow-sm px-4 text-gray-800 dark:text-white">
+                  {{ item.article.article_title }}
+                </h3>
+                
+                <!-- Author -->
+                <div class="mt-4 flex items-center justify-center">
+                  <div class="h-px bg-gray-700/40 dark:bg-white/30 flex-grow"></div>
+                  <div class="px-4 py-1">
+                    <span class="font-medium text-gray-700 dark:text-white/85">
+                      <span v-if="item.article.article_author">—— {{ item.article.article_author }}</span>
+                      <span v-else-if="item.article.article_source">—— {{ item.article.article_source }}</span>
+                    </span>
+                  </div>
+                  <div class="h-px bg-gray-700/40 dark:bg-white/30 flex-grow"></div>
+                </div>
+                
+                <!-- Tags -->
+                <div v-if="item.article.tags && item.article.tags.length > 0" 
+                     class="flex flex-wrap justify-center gap-1.5 mt-4">
+                  <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                               bg-gray-700/25 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white shadow-sm">
+                    #{{ tag }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 不带概要图片的标准卡片 -->
             <div v-else
                  class="w-full h-full rounded-2xl p-6 flex flex-col justify-between
             bg-white dark:bg-gray-900 shadow-lg dark:shadow-xl border border-gray-200 dark:border-gray-700">
@@ -372,6 +412,47 @@ const getCardBackgroundStyle = (article) => {
     };
   }
   return {};
+};
+
+const getQuoteCardStyle = (article) => {
+  // 生成随机背景色
+  const lightColors = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+    'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
+    'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
+    'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+    'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)'
+  ];
+  
+  const darkColors = [
+    'linear-gradient(135deg, #5a67d8 0%, #6b47a0 100%)',
+    'linear-gradient(135deg, #e076e8 0%, #f04760 100%)',
+    'linear-gradient(135deg, #3f9bfe 0%, #00d9e9 100%)',
+    'linear-gradient(135deg, #3ad56c 0%, #2de5c7 100%)',
+    'linear-gradient(135deg, #f95f8a 0%, #fdd130 100%)',
+    'linear-gradient(135deg, #98dde5 0%, #f0c6d6 100%)',
+    'linear-gradient(135deg, #4eddd1 0%, #a97fc0 100%)',
+    'linear-gradient(135deg, #c78bb6 0%, #f0e9c7 100%)',
+    'linear-gradient(135deg, #f0c952 0%, #fc9170 100%)',
+    'linear-gradient(135deg, #f9afdf 0%, #98b5e5 100%)'
+  ];
+  
+  // 使用文章ID生成确定性的随机索引，确保同一篇文章总是有相同的背景色
+  const index = article.article_id ? 
+    (article.article_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % lightColors.length : 
+    Math.floor(Math.random() * lightColors.length);
+  
+  // 检查是否为深色模式
+  const isDarkMode = document.documentElement.classList.contains('dark');
+  
+  return {
+    background: isDarkMode ? darkColors[index] : lightColors[index]
+  };
 };
 
 // Events

@@ -38,7 +38,7 @@
         <div class="flex items-center space-x-4">
           <!-- Search -->
           <div class="relative hidden sm:block">
-            <input v-model="searchQuery" type="text" placeholder="搜索文章..."
+            <input v-model="searchQuery" type="text" placeholder="发起一次灵魂垂钓..."
                    class="w-64 pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 border-0 rounded-full text-sm focus:ring-2 focus:ring-primary-500 focus:bg-white dark:focus:bg-gray-700 transition-all duration-200"
                    @keyup.enter="handleSearch" @input="handleSearchInput"/>
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none"

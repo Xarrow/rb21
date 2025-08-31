@@ -64,66 +64,66 @@
       </div>
 
       <!-- Hot Posts Carousel -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">热门推荐</h2>
-        <div class="relative overflow-hidden rounded-2xl">
-          <div 
-              class="flex transition-transform duration-500 ease-in-out"
-              :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-          >
-            <div
-                v-for="(post, index) in hotPosts"
-                :key="post.article_id"
-                class="w-full flex-shrink-0 relative h-96 cursor-pointer"
-                @click="viewPost(post)"
-            >
-              <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>
-              <img
-                  :src="post.article_head_image || 'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg'"
-                  :alt="post.article_title"
-                  class="w-full h-full object-cover"
-              />
-              <div class="absolute bottom-0 left-0 right-0 p-8 z-20 text-white">
-                <h3 class="text-3xl font-bold mb-2">{{ post.article_title }}</h3>
-                <p class="text-lg opacity-90 mb-4">{{ post.article_summary }}</p>
-                <div class="flex items-center space-x-4 text-sm">
-                  <span>{{ post.article_author }}</span>
-                  <span>{{ formatDate(post.create_time) }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Navigation Buttons -->
-          <button
-              @click="prevSlide"
-              class="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/30 rounded-full text-white transition-all duration-200"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-          </button>
-          <button
-              @click="nextSlide"
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/30 rounded-full text-white transition-all duration-200"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-          </button>
+<!--      <div class="mb-12">-->
+<!--        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">热门推荐</h2>-->
+<!--        <div class="relative overflow-hidden rounded-2xl">-->
+<!--          <div -->
+<!--              class="flex transition-transform duration-500 ease-in-out"-->
+<!--              :style="{ transform: `translateX(-${currentSlide * 100}%)` }"-->
+<!--          >-->
+<!--            <div-->
+<!--                v-for="(post, index) in hotPosts"-->
+<!--                :key="post.article_id"-->
+<!--                class="w-full flex-shrink-0 relative h-96 cursor-pointer"-->
+<!--                @click="viewPost(post)"-->
+<!--            >-->
+<!--              <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>-->
+<!--              <img-->
+<!--                  :src="post.article_head_image || 'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg'"-->
+<!--                  :alt="post.article_title"-->
+<!--                  class="w-full h-full object-cover"-->
+<!--              />-->
+<!--              <div class="absolute bottom-0 left-0 right-0 p-8 z-20 text-white">-->
+<!--                <h3 class="text-3xl font-bold mb-2">{{ post.article_title }}</h3>-->
+<!--                <p class="text-lg opacity-90 mb-4">{{ post.article_summary }}</p>-->
+<!--                <div class="flex items-center space-x-4 text-sm">-->
+<!--                  <span>{{ post.article_author }}</span>-->
+<!--                  <span>{{ formatDate(post.create_time) }}</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          -->
+<!--          &lt;!&ndash; Navigation Buttons &ndash;&gt;-->
+<!--          <button-->
+<!--              @click="prevSlide"-->
+<!--              class="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/30 rounded-full text-white transition-all duration-200"-->
+<!--          >-->
+<!--            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">-->
+<!--              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>-->
+<!--            </svg>-->
+<!--          </button>-->
+<!--          <button-->
+<!--              @click="nextSlide"-->
+<!--              class="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/30 rounded-full text-white transition-all duration-200"-->
+<!--          >-->
+<!--            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">-->
+<!--              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>-->
+<!--            </svg>-->
+<!--          </button>-->
 
-          <!-- Dots Indicator -->
-          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
-            <button
-                v-for="(_, index) in hotPosts"
-                :key="index"
-                @click="currentSlide = index"
-                class="w-3 h-3 rounded-full transition-all duration-200"
-                :class="currentSlide === index ? 'bg-white' : 'bg-white/50'"
-            ></button>
-          </div>
-        </div>
-      </div>
+<!--          &lt;!&ndash; Dots Indicator &ndash;&gt;-->
+<!--          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">-->
+<!--            <button-->
+<!--                v-for="(_, index) in hotPosts"-->
+<!--                :key="index"-->
+<!--                @click="currentSlide = index"-->
+<!--                class="w-3 h-3 rounded-full transition-all duration-200"-->
+<!--                :class="currentSlide === index ? 'bg-white' : 'bg-white/50'"-->
+<!--            ></button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <!-- Content Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">

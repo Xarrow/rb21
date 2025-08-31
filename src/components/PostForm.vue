@@ -170,21 +170,21 @@
             <div v-else class="space-y-3">
               <div class="flex flex-wrap gap-2">
                 <div
-                  v-for="tag in availableTags"
-                  :key="tag.tag_id"
-                  @click="toggleTagSelection(tag.tag_id)"
-                  class="px-3 py-1 rounded-full text-sm cursor-pointer transition-all duration-200 flex items-center"
-                  :class="getTagClass(tag.tag_id)"
+                    v-for="tag in availableTags"
+                    :key="tag.tag_id"
+                    @click="toggleTagSelection(tag.tag_id)"
+                    class="px-3 py-1 rounded-full text-sm cursor-pointer transition-all duration-200 flex items-center"
+                    :class="getTagClass(tag.tag_id)"
                 >
                   <span>{{ tag.tag_name }}</span>
                   <svg
-                    v-if="isCurrentTag(tag.tag_id)"
-                    class="w-3 h-3 ml-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                      v-if="isCurrentTag(tag.tag_id)"
+                      class="w-3 h-3 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                   >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                   </svg>
                 </div>
               </div>
@@ -358,10 +358,10 @@ const currentTags = ref([]);
 const loadingTags = ref(false);
 
 const showStyleOptions = [
-  {value: 'chaosCategory', label: '薛定谔的分类'},
-  {value: 'highWords', label: '当代废话文学'},
-  {value: 'highResource', label: '互联网生存物资'},
-  {value: 'highImages', label: '精神污染浓度99%'}
+  {value: 'chaosCategory', label: '摸鱼预备区（暂时没想好去哪摸？先在这热身！）'},
+  {value: 'highWords', label: '废话文学研讨会（摸鱼时聊天必备，学会了吗？）'},
+  {value: 'highResource', label: '摸鱼装备库（没这些宝藏，你怎么高效摸鱼？）'},
+  {value: 'highImages', label: '摸鱼表情包（储备充足，才能随时引爆尬聊群！）'}
 ];
 
 const statusOptions = [
@@ -406,13 +406,13 @@ onMounted(() => {
         form[key] = props.initialData[key];
       }
     });
-    
+
     // Set current tags if available
     if (props.initialData.current_tags) {
       currentTags.value = props.initialData.current_tags;
       form.article_tags = currentTags.value.map(tag => tag.tag_id);
     }
-    
+
     emit('update:content', form.article_content);
   }
 

@@ -12,14 +12,14 @@
       <div class="w-full px-4">
         <div class="flex flex-col lg:flex-row gap-0">
           <!-- Mobile Sidebar (shown above content on mobile) -->
-          <div class="lg:hidden">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
-              <PopularTags
-                  :tags="popularTags"
-                  @tag-click="handleTagSelect"
-              />
-            </div>
-          </div>
+<!--          <div class="lg:hidden">-->
+<!--            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">-->
+<!--              <PopularTags-->
+<!--                  :tags="popularTags"-->
+<!--                  @tag-click="handleTagSelect"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </div>-->
 
           <!-- Articles Waterfall -->
           <div class="w-full lg:w-[calc(100%)]">

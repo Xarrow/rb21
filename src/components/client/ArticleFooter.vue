@@ -15,10 +15,11 @@
       <div class="flex flex-col md:flex-row justify-between items-start space-y-6 md:space-y-0 md:space-x-10">
         <!-- Left Side: Introduction Text -->
         <div class="w-full md:w-1/2 text-gray-300 text-sm">
-          <h3 class="text-lg font-bold text-white mb-3 tracking-wider">随便看看</h3>
-          <p class="mb-2 leading-relaxed">生活琐碎,工作疲惫,已经够累了</p>
-          <p class="mb-2 leading-relaxed">有时候，一个小梗图、一张奇奇怪怪，可可爱爱的图片，就能赶跑一整天的疲憊。</p>
-          <p class="text-gray-400 mt-4 font-bold text-sm italic">“此中有真意，欲辨已忘言。”</p>
+          <h3 class="text-lg font-bold text-white mb-3 tracking-wider">后记</h3>
+          <p class="mb-2 leading-relaxed">生活已经够累了，工作琐碎，生活乱麻，日常疲惫，电量告急。</p>
+          <p class="mb-2 leading-relaxed">没关系，偶尔停下来摸个鱼 ———— </p>
+          <p class="mb-2 leading-relaxed">一张无厘头的梗图，一只怪可爱的修狗，甚至一片长得像土豆的云～ 都能悄悄给你充点儿电；</p>
+          <p class="text-gray-400 mt-4 font-bold text-sm italic">“此中有真意，欲辨已忘言。” 有些快乐说不清楚，但点开就懂了</p>
         </div>
 
         <!-- Divider -->
@@ -33,7 +34,7 @@
                    stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
               </svg>
-              <span>关于我们（其实没啥好说的）</span>
+              <span>关于我们: 一群专业的摸鱼运动员</span>
             </a>
             <a href="#" class="flex items-center text-gray-300 hover:text-white transition-colors duration-300 text-sm group">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24"
@@ -46,14 +47,15 @@
           </div>
           <!-- Funny Copyright -->
           <div class="text-gray-500 text-sm text-left md:text-right mt-4 pt-4 w-full">
-            <p>© 叽里咕噜 {{ new Date().getFullYear() }}
+            <p>© 叽里咕噜摸鱼集团 {{ new Date().getFullYear() }}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block text-red-500 -mt-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                       clip-rule="evenodd"/>
               </svg>
-              Vue.js
+              Vue.js 精心摸鱼构建
             </p>
-            <p class="mt-1">版权所有，盗版必究（才怪）| 本网站内容纯属娱乐，如有雷同，那一定是巧合</p>
+            <p class="mt-1">版权归属摸鱼者，快乐共享，独摸摸不如众摸摸，快乐的事情要一起分享</p>
+            <p class="mt-1">本鱼塘内容纯属娱乐，如有雷同，那一定是我们摸到了同一条鱼！</p>
           </div>
         </div>
       </div>
