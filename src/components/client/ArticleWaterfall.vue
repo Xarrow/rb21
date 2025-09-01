@@ -85,39 +85,95 @@
             </div>
 
             <!-- 语录卡片样式 -->
-            <div v-else-if="!item.article.article_head_image || item.article.show_style === 'post'"
-                 class="w-full h-full rounded-2xl p-6 flex flex-col justify-center relative overflow-hidden"
+            <div v-else-if="!item.article.article_head_image || item.article.show_style === 'post' || item.article.article_category === 'highWords'"
+                 class="w-full h-full rounded-2xl p-6 flex flex-col justify-center relative overflow-hidden backdrop-blur-xl bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-500"
                  :style="getQuoteCardStyle(item.article)">
-              <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 dark:from-white/10 dark:to-white/0 backdrop-blur-sm"></div>
-              <div class="relative z-10 text-center px-2">
-                <!-- 引号图标 -->
-                <svg class="w-8 h-8 text-gray-700/70 dark:text-white/60 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                </svg>
+              <!-- 几何图案背景 -->
+              <div class="absolute inset-0 overflow-hidden opacity-40 dark:opacity-35">
+                <!-- 多个随机三角形图案 -->
+                <div class="absolute top-4 right-4 w-16 h-16">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(0)"></div>
+                </div>
                 
+                <div class="absolute bottom-8 left-8 w-12 h-12">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(1)"></div>
+                </div>
+                
+                <div class="absolute top-16 left-12 w-10 h-10">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(2)"></div>
+                </div>
+                
+                <div class="absolute bottom-12 right-10 w-14 h-14">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(3)"></div>
+                </div>
+                
+                <div class="absolute top-1/3 right-1/4 w-8 h-8">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(4)"></div>
+                </div>
+                
+                <!-- 额外的三角形图案 -->
+                <div class="absolute top-1/4 right-1/5 w-5 h-5">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(5)"></div>
+                </div>
+                
+                <div class="absolute bottom-1/5 left-1/4 w-7 h-7">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(0)"></div>
+                </div>
+                
+                <div class="absolute top-1/2 left-1/3 w-6 h-6">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(1)"></div>
+                </div>
+                
+                <div class="absolute bottom-1/3 right-1/3 w-9 h-9">
+                  <div class="absolute w-full h-full" :style="getTriangleStyle(2)"></div>
+                </div>
+                
+                <!-- 多个随机圆点图案 -->
+                <div class="absolute top-10 left-16 w-3 h-3 rounded-full bg-white"></div>
+                <div class="absolute bottom-20 right-16 w-4 h-4 rounded-full bg-white"></div>
+                <div class="absolute top-24 right-24 w-2 h-2 rounded-full bg-white"></div>
+                <div class="absolute bottom-32 left-24 w-3 h-3 rounded-full bg-white"></div>
+                <div class="absolute top-1/2 left-1/4 w-2 h-2 rounded-full bg-white"></div>
+                <div class="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-white"></div>
+                <div class="absolute bottom-1/4 left-1/2 w-2 h-2 rounded-full bg-white"></div>
+                
+                <!-- 更多圆点图案 -->
+                <div class="absolute top-1/5 left-1/5 w-2 h-2 rounded-full bg-white opacity-80"></div>
+                <div class="absolute bottom-1/5 right-1/5 w-3 h-3 rounded-full bg-white opacity-70"></div>
+              </div>
+              
+              <div class="absolute inset-0 bg-gradient-to-br from-white/30 to-white/5 dark:from-white/10 dark:to-white/0 backdrop-blur-sm"></div>
+              <div class="relative z-10 text-center px-2 py-4">
+                <!-- 引号图标 -->
+                <div class="absolute -top-2 -left-2 opacity-30 dark:opacity-25">
+                  <svg class="w-10 h-10 text-current" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                  </svg>
+                </div>
+
                 <!-- Title -->
-                <h3 class="text-xl sm:text-2xl font-bold leading-tight drop-shadow-sm px-4 text-gray-800 dark:text-white">
+                <h3 class="text-xl sm:text-2xl font-bold leading-tight drop-shadow-sm px-4 text-gray-800 dark:text-white mb-6 mt-4 tracking-tight font-serif">
                   {{ item.article.article_title }}
                 </h3>
-                
+
                 <!-- Author -->
-                <div class="mt-4 flex items-center justify-center">
-                  <div class="h-px bg-gray-700/40 dark:bg-white/30 flex-grow"></div>
+                <div class="flex items-center justify-center mb-6">
+                  <div class="h-px bg-gradient-to-r from-transparent via-gray-700/40 dark:via-white/30 to-transparent flex-grow"></div>
                   <div class="px-4 py-1">
-                    <span class="font-medium text-gray-700 dark:text-white/85">
+                    <span class="font-medium text-gray-700 dark:text-white/90 text-base tracking-wide font-sans">
                       <span v-if="item.article.article_author">—— {{ item.article.article_author }}</span>
                       <span v-else-if="item.article.article_source">—— {{ item.article.article_source }}</span>
                     </span>
                   </div>
-                  <div class="h-px bg-gray-700/40 dark:bg-white/30 flex-grow"></div>
+                  <div class="h-px bg-gradient-to-r from-transparent via-gray-700/40 dark:via-white/30 to-transparent flex-grow"></div>
                 </div>
-                
+
                 <!-- Tags -->
-                <div v-if="item.article.tags && item.article.tags.length > 0" 
-                     class="flex flex-wrap justify-center gap-1.5 mt-4">
+                <div v-if="item.article.tags && item.article.tags.length > 0"
+                     class="flex flex-wrap justify-center gap-2 mt-4">
                   <span v-for="tag in item.article.tags.slice(0, 3)" :key="tag"
-                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
-                               bg-gray-700/25 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white shadow-sm">
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+                               bg-white/30 dark:bg-white/20 backdrop-blur-lg text-gray-800 dark:text-gray-200 shadow-sm border border-white/50 dark:border-white/20 hover:bg-white/40 dark:hover:bg-white/30 transition-all duration-300 tracking-wide font-sans">
                     #{{ tag }}
                   </span>
                 </div>
@@ -415,44 +471,131 @@ const getCardBackgroundStyle = (article) => {
 };
 
 const getQuoteCardStyle = (article) => {
-  // 生成随机背景色
+  // 更现代化的渐变色彩方案
   const lightColors = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+    'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
+    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+    'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
+    'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+    'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
+    'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)',
+    'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+    'linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)',
+    'linear-gradient(135deg, #a6c0fe 0%, #f68084 100%)',
+    'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)',
     'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-    'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
-    'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-    'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
-    'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)'
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
   ];
-  
+
   const darkColors = [
-    'linear-gradient(135deg, #5a67d8 0%, #6b47a0 100%)',
-    'linear-gradient(135deg, #e076e8 0%, #f04760 100%)',
-    'linear-gradient(135deg, #3f9bfe 0%, #00d9e9 100%)',
-    'linear-gradient(135deg, #3ad56c 0%, #2de5c7 100%)',
-    'linear-gradient(135deg, #f95f8a 0%, #fdd130 100%)',
-    'linear-gradient(135deg, #98dde5 0%, #f0c6d6 100%)',
-    'linear-gradient(135deg, #4eddd1 0%, #a97fc0 100%)',
-    'linear-gradient(135deg, #c78bb6 0%, #f0e9c7 100%)',
-    'linear-gradient(135deg, #f0c952 0%, #fc9170 100%)',
-    'linear-gradient(135deg, #f9afdf 0%, #98b5e5 100%)'
+    'linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%)',
+    'linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%)',
+    'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+    'linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%)',
+    'linear-gradient(135deg, #654ea3 0%, #da98b4 100%)',
+    'linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%)',
+    'linear-gradient(135deg, #00b09b 0%, #96c93d 100%)',
+    'linear-gradient(135deg, #834d9b 0%, #d04ed6 100%)',
+    'linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%)',
+    'linear-gradient(135deg, #5433FF 0%, #20BDFF 100%)',
+    'linear-gradient(135deg, #7474BF 0%, #348AC7 100%)',
+    'linear-gradient(135deg, #f85032 0%, #e73827 100%)',
+    'linear-gradient(135deg, #614385 0%, #516395 100%)',
+    'linear-gradient(135deg, #4B79A1 0%, #283E51 100%)',
+    'linear-gradient(135deg, #4b6cb7 0%, #182848 100%)'
   ];
-  
+
   // 使用文章ID生成确定性的随机索引，确保同一篇文章总是有相同的背景色
-  const index = article.article_id ? 
-    (article.article_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % lightColors.length : 
-    Math.floor(Math.random() * lightColors.length);
-  
+  const index = article.article_id ?
+      (article.article_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % lightColors.length :
+      Math.floor(Math.random() * lightColors.length);
+
   // 检查是否为深色模式
   const isDarkMode = document.documentElement.classList.contains('dark');
-  
+
   return {
     background: isDarkMode ? darkColors[index] : lightColors[index]
   };
+};
+
+const getTriangleStyle = (index) => {
+  const triangleStyles = [
+    { 
+      clipPath: 'polygon(0 0, 0% 100%, 100% 0)', 
+      backgroundColor: 'white' 
+    },
+    { 
+      clipPath: 'polygon(100% 0, 0 100%, 100% 100%)', 
+      backgroundColor: 'white'
+    },
+    {
+      clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+      backgroundColor: 'white',
+      opacity: '0.7'
+    },
+    {
+      clipPath: 'polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%)',
+      backgroundColor: 'white',
+      opacity: '0.5'
+    }
+  ];
+  
+  // 每次随机选择一个样式，而不是使用固定的索引
+  const randomIndex = Math.floor(Math.random() * triangleStyles.length);
+  return triangleStyles[randomIndex];
+};
+
+const getLineStyle = (index) => {
+  const lineStyles = [
+    { 
+      backgroundImage: 'linear-gradient(to right, transparent 50%, white 50%)', 
+      backgroundSize: '20px 100%',
+      boxShadow: '0 0 1px rgba(255, 255, 255, 0.8)'
+    },
+    { 
+      backgroundImage: 'linear-gradient(to right, transparent 70%, white 70%)', 
+      backgroundSize: '15px 100%',
+      boxShadow: '0 0 1px rgba(255, 255, 255, 0.8)'
+    },
+    {
+      backgroundImage: 'linear-gradient(to right, white 30%, transparent 30%, transparent 60%, white 60%, white 90%, transparent 90%)',
+      backgroundSize: '30px 100%',
+      boxShadow: '0 0 1px rgba(255, 255, 255, 0.8)'
+    }
+  ];
+  
+  // 每次随机选择一个样式，而不是使用固定的索引
+  const randomIndex = Math.floor(Math.random() * lineStyles.length);
+  return lineStyles[randomIndex];
+};
+
+// 添加获取圆形图案样式的方法
+const getCircleStyle = () => {
+  const styles = [
+    { border: '2px solid white', opacity: '0.5' },
+    { border: '1px solid white', opacity: '0.7' },
+    { border: '3px solid white', opacity: '0.4' },
+    { border: '1px dashed white', opacity: '0.6' }
+  ];
+  
+  const randomIndex = Math.floor(Math.random() * styles.length);
+  return styles[randomIndex];
+};
+
+// 添加获取矩形图案样式的方法
+const getRectangleStyle = () => {
+  const styles = [
+    { backgroundColor: 'white', opacity: '0.6' },
+    { backgroundColor: 'white', opacity: '0.7' },
+    { backgroundColor: 'white', opacity: '0.5' },
+    { backgroundColor: 'white', opacity: '0.8' }
+  ];
+  
+  const randomIndex = Math.floor(Math.random() * styles.length);
+  return styles[randomIndex];
 };
 
 // Events
